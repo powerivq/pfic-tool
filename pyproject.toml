@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "single-fund-pfic"
+version = "0.1.0"
+description = "Exact FIFO PFIC block calculations and auditable Form 8621 worksheets"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools.package-data]
+pfic = ["data/*.json"]
+
+[tool.setuptools.packages.find]
+include = ["pfic*"]

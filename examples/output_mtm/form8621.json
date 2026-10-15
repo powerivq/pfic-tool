@@ -1,0 +1,1255 @@
+{
+  "schema_version": "1.0",
+  "reporting_rounding": "whole dollars, half up, only at output",
+  "fund_name": "Synthetic CNY fund — MTM transition in 2022",
+  "tax_year": 2023,
+  "form_revision": "12/2018",
+  "status": "calculation_worksheets_not_a_complete_signed_return",
+  "config": {
+    "tax_year": 2023,
+    "fund_name": "Synthetic CNY fund — MTM transition in 2022",
+    "first_pfic_year": 2021,
+    "us_person_since": "2000-01-01",
+    "complete_history": true,
+    "ordinary_dividends_confirmed": true,
+    "regime": "mtm",
+    "election_year": 2022,
+    "mtm_eligible": true,
+    "election_valid": true,
+    "valuations": {
+      "2022": {
+        "unit_value": {
+          "exact": "15/1",
+          "decimal": "15",
+          "rounded_whole_if_monetary": "15"
+        },
+        "currency": "CNY",
+        "source": "Synthetic fixture"
+      },
+      "2023": {
+        "unit_value": {
+          "exact": "17/1",
+          "decimal": "17",
+          "rounded_whole_if_monetary": "17"
+        },
+        "currency": "CNY",
+        "source": "Synthetic fixture"
+      }
+    },
+    "due_dates": {
+      "2021": "2022-04-15",
+      "2022": "2023-04-15",
+      "2023": "2024-04-15"
+    },
+    "claim_foreign_tax_credit": false,
+    "foreign_taxes_creditable": false,
+    "ending_units": {
+      "exact": "75/1",
+      "decimal": "75",
+      "rounded_whole_if_monetary": "75"
+    }
+  },
+  "ending_units": {
+    "exact": "75/1",
+    "decimal": "75",
+    "rounded_whole_if_monetary": "75"
+  },
+  "blocks": [
+    {
+      "block_id": "buy1/sold/sell1",
+      "purchase_id": "buy1",
+      "account": "example",
+      "acquisition_date": "2021-02-05",
+      "holding_start": "2021-02-06",
+      "units": {
+        "exact": "100/1",
+        "decimal": "100",
+        "rounded_whole_if_monetary": "100"
+      },
+      "purchase_currency": "CNY",
+      "allocated_purchase_cost_local": {
+        "exact": "1000/1",
+        "decimal": "1000",
+        "rounded_whole_if_monetary": "1000"
+      },
+      "original_basis_usd": {
+        "exact": "50000/327",
+        "decimal": "152.90519877675840978593272171253822629969418960244648318042813455657492354740061",
+        "rounded_whole_if_monetary": "153"
+      },
+      "sale_id": "sell1",
+      "sale_date": "2023-09-05",
+      "allocated_net_proceeds_local": {
+        "exact": "20780/13",
+        "decimal": "1598.4615384615384615384615384615384615384615384615384615384615384615384615384615",
+        "rounded_whole_if_monetary": "1598"
+      },
+      "ending_basis_usd": {
+        "exact": "0/1",
+        "decimal": "0",
+        "rounded_whole_if_monetary": "0"
+      },
+      "ending_unreversed_inclusions": {
+        "exact": "0/1",
+        "decimal": "0",
+        "rounded_whole_if_monetary": "0"
+      },
+      "worksheets": [
+        {
+          "kind": "dividend",
+          "transaction_id": "cash2",
+          "payment_date": "2023-06-20",
+          "eligibility_date": "2023-06-15",
+          "eligible_units": {
+            "exact": "100/1",
+            "decimal": "100",
+            "rounded_whole_if_monetary": "100"
+          },
+          "total_eligible_units": {
+            "exact": "200/1",
+            "decimal": "200",
+            "rounded_whole_if_monetary": "200"
+          },
+          "currency": "CNY",
+          "distribution_currency": "CNY",
+          "allocated_dividend_local": {
+            "exact": "40/1",
+            "decimal": "40",
+            "rounded_whole_if_monetary": "40"
+          },
+          "allocated_dividend_usd": {
+            "exact": "64/11",
+            "decimal": "5.8181818181818181818181818181818181818181818181818181818181818181818181818181818",
+            "rounded_whole_if_monetary": "6"
+          },
+          "nonexcess_dividend_usd": {
+            "exact": "64/11",
+            "decimal": "5.8181818181818181818181818181818181818181818181818181818181818181818181818181818",
+            "rounded_whole_if_monetary": "6"
+          },
+          "withholding_local": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "withholding_usd": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "current_year_foreign_tax_credit_candidate_usd": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "15a": {
+            "exact": "40/1",
+            "decimal": "40",
+            "rounded_whole_if_monetary": "40"
+          },
+          "15b": {
+            "exact": "171/25",
+            "decimal": "6.84",
+            "rounded_whole_if_monetary": "7"
+          },
+          "15c": {
+            "exact": "171/50",
+            "decimal": "3.42",
+            "rounded_whole_if_monetary": "3"
+          },
+          "15d": {
+            "exact": "171/40",
+            "decimal": "4.275",
+            "rounded_whole_if_monetary": "4"
+          },
+          "annual_excess": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "event_excess_calculation_currency": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "event_excess_usd": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "prior_years_in_average": 2,
+          "tax": null,
+          "regime": "mtm",
+          "history_included_local": {
+            "exact": "40/1",
+            "decimal": "40",
+            "rounded_whole_if_monetary": "40"
+          },
+          "15e": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "15e_usd_for_16a": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "form_part": "ordinary_dividend_outside_Part_IV"
+        },
+        {
+          "kind": "sale",
+          "transaction_id": "sell1",
+          "date": "2023-09-05",
+          "regime": "mtm",
+          "form_part": "IV",
+          "13a": {
+            "exact": "5195000/23621",
+            "decimal": "219.93141695948520384403708564413022310655772405909995343126878624952372888531392",
+            "rounded_whole_if_monetary": "220"
+          },
+          "13b": {
+            "exact": "500000/2299",
+            "decimal": "217.48586341887777294475859069160504567203131796433231839930404523705959112657677",
+            "rounded_whole_if_monetary": "217"
+          },
+          "13c": {
+            "exact": "132805000/54304679",
+            "decimal": "2.4455535406074308992784949525251774345264060947676350319647410124641377587371431",
+            "rounded_whole_if_monetary": "2"
+          },
+          "14a": null,
+          "14b": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "14c": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "ordinary_income": {
+            "exact": "132805000/54304679",
+            "decimal": "2.4455535406074308992784949525251774345264060947676350319647410124641377587371431",
+            "rounded_whole_if_monetary": "2"
+          },
+          "other_loss": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        }
+      ],
+      "basis_history": [
+        {
+          "year": 2022,
+          "kind": "mtm_transition",
+          "date": "2022-12-31",
+          "form_part": "V",
+          "15f": {
+            "exact": "48550000/751773",
+            "decimal": "64.580664642119363158825868979066819372337128361885835218875910680484667579176161",
+            "rounded_whole_if_monetary": "65"
+          },
+          "fair_market_value_usd": {
+            "exact": "500000/2299",
+            "decimal": "217.48586341887777294475859069160504567203131796433231839930404523705959112657677",
+            "rounded_whole_if_monetary": "217"
+          },
+          "opening_basis": {
+            "exact": "50000/327",
+            "decimal": "152.90519877675840978593272171253822629969418960244648318042813455657492354740061",
+            "rounded_whole_if_monetary": "153"
+          },
+          "ending_basis": {
+            "exact": "500000/2299",
+            "decimal": "217.48586341887777294475859069160504567203131796433231839930404523705959112657677",
+            "rounded_whole_if_monetary": "217"
+          },
+          "ending_unreversed": {
+            "exact": "48550000/751773",
+            "decimal": "64.580664642119363158825868979066819372337128361885835218875910680484667579176161",
+            "rounded_whole_if_monetary": "65"
+          },
+          "unrecognized_decline": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        },
+        {
+          "year": 2023,
+          "action": "sale",
+          "basis": {
+            "exact": "500000/2299",
+            "decimal": "217.48586341887777294475859069160504567203131796433231839930404523705959112657677",
+            "rounded_whole_if_monetary": "217"
+          },
+          "proceeds_usd": {
+            "exact": "5195000/23621",
+            "decimal": "219.93141695948520384403708564413022310655772405909995343126878624952372888531392",
+            "rounded_whole_if_monetary": "220"
+          },
+          "gain_usd": {
+            "exact": "132805000/54304679",
+            "decimal": "2.4455535406074308992784949525251774345264060947676350319647410124641377587371431",
+            "rounded_whole_if_monetary": "2"
+          },
+          "unreversed_inclusions": {
+            "exact": "48550000/751773",
+            "decimal": "64.580664642119363158825868979066819372337128361885835218875910680484667579176161",
+            "rounded_whole_if_monetary": "65"
+          }
+        }
+      ],
+      "distribution_history": [
+        {
+          "distribution_id": "cash1",
+          "date": "2022-06-20",
+          "currency": "CNY",
+          "gross_local": {
+            "exact": "20/1",
+            "decimal": "20",
+            "rounded_whole_if_monetary": "20"
+          },
+          "included_local": {
+            "exact": "171/25",
+            "decimal": "6.84",
+            "rounded_whole_if_monetary": "7"
+          },
+          "excluded_prior_pfic_local": {
+            "exact": "329/25",
+            "decimal": "13.16",
+            "rounded_whole_if_monetary": "13"
+          }
+        },
+        {
+          "distribution_id": "cash2",
+          "date": "2023-06-20",
+          "currency": "CNY",
+          "gross_local": {
+            "exact": "40/1",
+            "decimal": "40",
+            "rounded_whole_if_monetary": "40"
+          },
+          "included_local": {
+            "exact": "40/1",
+            "decimal": "40",
+            "rounded_whole_if_monetary": "40"
+          },
+          "excluded_prior_pfic_local": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        }
+      ]
+    },
+    {
+      "block_id": "buy2/held",
+      "purchase_id": "buy2",
+      "account": "example",
+      "acquisition_date": "2022-04-12",
+      "holding_start": "2022-04-13",
+      "units": {
+        "exact": "70/1",
+        "decimal": "70",
+        "rounded_whole_if_monetary": "70"
+      },
+      "purchase_currency": "CNY",
+      "allocated_purchase_cost_local": {
+        "exact": "840/1",
+        "decimal": "840",
+        "rounded_whole_if_monetary": "840"
+      },
+      "original_basis_usd": {
+        "exact": "20000/151",
+        "decimal": "132.45033112582781456953642384105960264900662251655629139072847682119205298013245",
+        "rounded_whole_if_monetary": "132"
+      },
+      "sale_id": null,
+      "sale_date": null,
+      "allocated_net_proceeds_local": null,
+      "ending_basis_usd": {
+        "exact": "74375/444",
+        "decimal": "167.51126126126126126126126126126126126126126126126126126126126126126126126126126",
+        "rounded_whole_if_monetary": "168"
+      },
+      "ending_unreversed_inclusions": {
+        "exact": "2350625/67044",
+        "decimal": "35.060930135433446691724837420201658612254638744704969870532784440069208281128811",
+        "rounded_whole_if_monetary": "35"
+      },
+      "worksheets": [
+        {
+          "kind": "dividend",
+          "transaction_id": "cash2",
+          "payment_date": "2023-06-20",
+          "eligibility_date": "2023-06-15",
+          "eligible_units": {
+            "exact": "70/1",
+            "decimal": "70",
+            "rounded_whole_if_monetary": "70"
+          },
+          "total_eligible_units": {
+            "exact": "200/1",
+            "decimal": "200",
+            "rounded_whole_if_monetary": "200"
+          },
+          "currency": "CNY",
+          "distribution_currency": "CNY",
+          "allocated_dividend_local": {
+            "exact": "28/1",
+            "decimal": "28",
+            "rounded_whole_if_monetary": "28"
+          },
+          "allocated_dividend_usd": {
+            "exact": "224/55",
+            "decimal": "4.0727272727272727272727272727272727272727272727272727272727272727272727272727273",
+            "rounded_whole_if_monetary": "4"
+          },
+          "nonexcess_dividend_usd": {
+            "exact": "224/55",
+            "decimal": "4.0727272727272727272727272727272727272727272727272727272727272727272727272727273",
+            "rounded_whole_if_monetary": "4"
+          },
+          "withholding_local": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "withholding_usd": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "current_year_foreign_tax_credit_candidate_usd": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "15a": {
+            "exact": "28/1",
+            "decimal": "28",
+            "rounded_whole_if_monetary": "28"
+          },
+          "15b": {
+            "exact": "14/1",
+            "decimal": "14",
+            "rounded_whole_if_monetary": "14"
+          },
+          "15c": {
+            "exact": "14/1",
+            "decimal": "14",
+            "rounded_whole_if_monetary": "14"
+          },
+          "15d": {
+            "exact": "35/2",
+            "decimal": "17.5",
+            "rounded_whole_if_monetary": "18"
+          },
+          "annual_excess": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "event_excess_calculation_currency": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "event_excess_usd": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "prior_years_in_average": 1,
+          "tax": null,
+          "regime": "mtm",
+          "history_included_local": {
+            "exact": "28/1",
+            "decimal": "28",
+            "rounded_whole_if_monetary": "28"
+          },
+          "15e": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "15e_usd_for_16a": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "form_part": "ordinary_dividend_outside_Part_IV"
+        },
+        {
+          "year": 2023,
+          "kind": "mtm_year_end",
+          "form_part": "IV",
+          "10a": {
+            "exact": "74375/444",
+            "decimal": "167.51126126126126126126126126126126126126126126126126126126126126126126126126126",
+            "rounded_whole_if_monetary": "168"
+          },
+          "10b": {
+            "exact": "350000/2299",
+            "decimal": "152.24010439321444106133101348412353197042192257503262287951283166594171378860374",
+            "rounded_whole_if_monetary": "152"
+          },
+          "10c": {
+            "exact": "15588125/1020756",
+            "decimal": "15.271156868046820199930247777137729290839338686228638381748429595319547472657521",
+            "rounded_whole_if_monetary": "15"
+          },
+          "11": null,
+          "12": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "ordinary_income": {
+            "exact": "15588125/1020756",
+            "decimal": "15.271156868046820199930247777137729290839338686228638381748429595319547472657521",
+            "rounded_whole_if_monetary": "15"
+          },
+          "ending_basis": {
+            "exact": "74375/444",
+            "decimal": "167.51126126126126126126126126126126126126126126126126126126126126126126126126126",
+            "rounded_whole_if_monetary": "168"
+          },
+          "ending_unreversed": {
+            "exact": "2350625/67044",
+            "decimal": "35.060930135433446691724837420201658612254638744704969870532784440069208281128811",
+            "rounded_whole_if_monetary": "35"
+          },
+          "unrecognized_decline": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        }
+      ],
+      "basis_history": [
+        {
+          "year": 2022,
+          "kind": "mtm_year_end",
+          "form_part": "IV",
+          "10a": {
+            "exact": "350000/2299",
+            "decimal": "152.24010439321444106133101348412353197042192257503262287951283166594171378860374",
+            "rounded_whole_if_monetary": "152"
+          },
+          "10b": {
+            "exact": "20000/151",
+            "decimal": "132.45033112582781456953642384105960264900662251655629139072847682119205298013245",
+            "rounded_whole_if_monetary": "132"
+          },
+          "10c": {
+            "exact": "6870000/347149",
+            "decimal": "19.789773267386626491794589643063929321415300058476331488784354844749660808471290",
+            "rounded_whole_if_monetary": "20"
+          },
+          "11": null,
+          "12": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "ordinary_income": {
+            "exact": "6870000/347149",
+            "decimal": "19.789773267386626491794589643063929321415300058476331488784354844749660808471290",
+            "rounded_whole_if_monetary": "20"
+          },
+          "ending_basis": {
+            "exact": "350000/2299",
+            "decimal": "152.24010439321444106133101348412353197042192257503262287951283166594171378860374",
+            "rounded_whole_if_monetary": "152"
+          },
+          "ending_unreversed": {
+            "exact": "6870000/347149",
+            "decimal": "19.789773267386626491794589643063929321415300058476331488784354844749660808471290",
+            "rounded_whole_if_monetary": "20"
+          },
+          "unrecognized_decline": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        },
+        {
+          "year": 2023,
+          "kind": "mtm_year_end",
+          "form_part": "IV",
+          "10a": {
+            "exact": "74375/444",
+            "decimal": "167.51126126126126126126126126126126126126126126126126126126126126126126126126126",
+            "rounded_whole_if_monetary": "168"
+          },
+          "10b": {
+            "exact": "350000/2299",
+            "decimal": "152.24010439321444106133101348412353197042192257503262287951283166594171378860374",
+            "rounded_whole_if_monetary": "152"
+          },
+          "10c": {
+            "exact": "15588125/1020756",
+            "decimal": "15.271156868046820199930247777137729290839338686228638381748429595319547472657521",
+            "rounded_whole_if_monetary": "15"
+          },
+          "11": null,
+          "12": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "ordinary_income": {
+            "exact": "15588125/1020756",
+            "decimal": "15.271156868046820199930247777137729290839338686228638381748429595319547472657521",
+            "rounded_whole_if_monetary": "15"
+          },
+          "ending_basis": {
+            "exact": "74375/444",
+            "decimal": "167.51126126126126126126126126126126126126126126126126126126126126126126126126126",
+            "rounded_whole_if_monetary": "168"
+          },
+          "ending_unreversed": {
+            "exact": "2350625/67044",
+            "decimal": "35.060930135433446691724837420201658612254638744704969870532784440069208281128811",
+            "rounded_whole_if_monetary": "35"
+          },
+          "unrecognized_decline": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        }
+      ],
+      "distribution_history": [
+        {
+          "distribution_id": "cash1",
+          "date": "2022-06-20",
+          "currency": "CNY",
+          "gross_local": {
+            "exact": "14/1",
+            "decimal": "14",
+            "rounded_whole_if_monetary": "14"
+          },
+          "included_local": {
+            "exact": "14/1",
+            "decimal": "14",
+            "rounded_whole_if_monetary": "14"
+          },
+          "excluded_prior_pfic_local": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        },
+        {
+          "distribution_id": "cash2",
+          "date": "2023-06-20",
+          "currency": "CNY",
+          "gross_local": {
+            "exact": "28/1",
+            "decimal": "28",
+            "rounded_whole_if_monetary": "28"
+          },
+          "included_local": {
+            "exact": "28/1",
+            "decimal": "28",
+            "rounded_whole_if_monetary": "28"
+          },
+          "excluded_prior_pfic_local": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        }
+      ]
+    },
+    {
+      "block_id": "buy2/sold/sell1",
+      "purchase_id": "buy2",
+      "account": "example",
+      "acquisition_date": "2022-04-12",
+      "holding_start": "2022-04-13",
+      "units": {
+        "exact": "30/1",
+        "decimal": "30",
+        "rounded_whole_if_monetary": "30"
+      },
+      "purchase_currency": "CNY",
+      "allocated_purchase_cost_local": {
+        "exact": "360/1",
+        "decimal": "360",
+        "rounded_whole_if_monetary": "360"
+      },
+      "original_basis_usd": {
+        "exact": "60000/1057",
+        "decimal": "56.764427625354777672658467360454115421002838221381267738883632923368022705771050",
+        "rounded_whole_if_monetary": "57"
+      },
+      "sale_id": "sell1",
+      "sale_date": "2023-09-05",
+      "allocated_net_proceeds_local": {
+        "exact": "6234/13",
+        "decimal": "479.53846153846153846153846153846153846153846153846153846153846153846153846153846",
+        "rounded_whole_if_monetary": "480"
+      },
+      "ending_basis_usd": {
+        "exact": "0/1",
+        "decimal": "0",
+        "rounded_whole_if_monetary": "0"
+      },
+      "ending_unreversed_inclusions": {
+        "exact": "0/1",
+        "decimal": "0",
+        "rounded_whole_if_monetary": "0"
+      },
+      "worksheets": [
+        {
+          "kind": "dividend",
+          "transaction_id": "cash2",
+          "payment_date": "2023-06-20",
+          "eligibility_date": "2023-06-15",
+          "eligible_units": {
+            "exact": "30/1",
+            "decimal": "30",
+            "rounded_whole_if_monetary": "30"
+          },
+          "total_eligible_units": {
+            "exact": "200/1",
+            "decimal": "200",
+            "rounded_whole_if_monetary": "200"
+          },
+          "currency": "CNY",
+          "distribution_currency": "CNY",
+          "allocated_dividend_local": {
+            "exact": "12/1",
+            "decimal": "12",
+            "rounded_whole_if_monetary": "12"
+          },
+          "allocated_dividend_usd": {
+            "exact": "96/55",
+            "decimal": "1.7454545454545454545454545454545454545454545454545454545454545454545454545454545",
+            "rounded_whole_if_monetary": "2"
+          },
+          "nonexcess_dividend_usd": {
+            "exact": "96/55",
+            "decimal": "1.7454545454545454545454545454545454545454545454545454545454545454545454545454545",
+            "rounded_whole_if_monetary": "2"
+          },
+          "withholding_local": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "withholding_usd": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "current_year_foreign_tax_credit_candidate_usd": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "15a": {
+            "exact": "12/1",
+            "decimal": "12",
+            "rounded_whole_if_monetary": "12"
+          },
+          "15b": {
+            "exact": "6/1",
+            "decimal": "6",
+            "rounded_whole_if_monetary": "6"
+          },
+          "15c": {
+            "exact": "6/1",
+            "decimal": "6",
+            "rounded_whole_if_monetary": "6"
+          },
+          "15d": {
+            "exact": "15/2",
+            "decimal": "7.5",
+            "rounded_whole_if_monetary": "8"
+          },
+          "annual_excess": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "event_excess_calculation_currency": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "event_excess_usd": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "prior_years_in_average": 1,
+          "tax": null,
+          "regime": "mtm",
+          "history_included_local": {
+            "exact": "12/1",
+            "decimal": "12",
+            "rounded_whole_if_monetary": "12"
+          },
+          "15e": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "15e_usd_for_16a": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "form_part": "ordinary_dividend_outside_Part_IV"
+        },
+        {
+          "kind": "sale",
+          "transaction_id": "sell1",
+          "date": "2023-09-05",
+          "regime": "mtm",
+          "form_part": "IV",
+          "13a": {
+            "exact": "1558500/23621",
+            "decimal": "65.979425087845561153211125693239066931967317217729986029380635874857118665594175",
+            "rounded_whole_if_monetary": "66"
+          },
+          "13b": {
+            "exact": "150000/2299",
+            "decimal": "65.245759025663331883427577207481513701609395389299695519791213571117877337973032",
+            "rounded_whole_if_monetary": "65"
+          },
+          "13c": {
+            "exact": "39841500/54304679",
+            "decimal": "0.73366606218222926978354848575755323035792182843029050958942230373924132762114292",
+            "rounded_whole_if_monetary": "1"
+          },
+          "14a": null,
+          "14b": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "14c": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "ordinary_income": {
+            "exact": "39841500/54304679",
+            "decimal": "0.73366606218222926978354848575755323035792182843029050958942230373924132762114292",
+            "rounded_whole_if_monetary": "1"
+          },
+          "other_loss": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        }
+      ],
+      "basis_history": [
+        {
+          "year": 2022,
+          "kind": "mtm_year_end",
+          "form_part": "IV",
+          "10a": {
+            "exact": "150000/2299",
+            "decimal": "65.245759025663331883427577207481513701609395389299695519791213571117877337973032",
+            "rounded_whole_if_monetary": "65"
+          },
+          "10b": {
+            "exact": "60000/1057",
+            "decimal": "56.764427625354777672658467360454115421002838221381267738883632923368022705771050",
+            "rounded_whole_if_monetary": "57"
+          },
+          "10c": {
+            "exact": "20610000/2430043",
+            "decimal": "8.4813314003085542107691098470273982806065571679184277809075806477498546322019816",
+            "rounded_whole_if_monetary": "8"
+          },
+          "11": null,
+          "12": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "ordinary_income": {
+            "exact": "20610000/2430043",
+            "decimal": "8.4813314003085542107691098470273982806065571679184277809075806477498546322019816",
+            "rounded_whole_if_monetary": "8"
+          },
+          "ending_basis": {
+            "exact": "150000/2299",
+            "decimal": "65.245759025663331883427577207481513701609395389299695519791213571117877337973032",
+            "rounded_whole_if_monetary": "65"
+          },
+          "ending_unreversed": {
+            "exact": "20610000/2430043",
+            "decimal": "8.4813314003085542107691098470273982806065571679184277809075806477498546322019816",
+            "rounded_whole_if_monetary": "8"
+          },
+          "unrecognized_decline": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        },
+        {
+          "year": 2023,
+          "action": "sale",
+          "basis": {
+            "exact": "150000/2299",
+            "decimal": "65.245759025663331883427577207481513701609395389299695519791213571117877337973032",
+            "rounded_whole_if_monetary": "65"
+          },
+          "proceeds_usd": {
+            "exact": "1558500/23621",
+            "decimal": "65.979425087845561153211125693239066931967317217729986029380635874857118665594175",
+            "rounded_whole_if_monetary": "66"
+          },
+          "gain_usd": {
+            "exact": "39841500/54304679",
+            "decimal": "0.73366606218222926978354848575755323035792182843029050958942230373924132762114292",
+            "rounded_whole_if_monetary": "1"
+          },
+          "unreversed_inclusions": {
+            "exact": "20610000/2430043",
+            "decimal": "8.4813314003085542107691098470273982806065571679184277809075806477498546322019816",
+            "rounded_whole_if_monetary": "8"
+          }
+        }
+      ],
+      "distribution_history": [
+        {
+          "distribution_id": "cash1",
+          "date": "2022-06-20",
+          "currency": "CNY",
+          "gross_local": {
+            "exact": "6/1",
+            "decimal": "6",
+            "rounded_whole_if_monetary": "6"
+          },
+          "included_local": {
+            "exact": "6/1",
+            "decimal": "6",
+            "rounded_whole_if_monetary": "6"
+          },
+          "excluded_prior_pfic_local": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        },
+        {
+          "distribution_id": "cash2",
+          "date": "2023-06-20",
+          "currency": "CNY",
+          "gross_local": {
+            "exact": "12/1",
+            "decimal": "12",
+            "rounded_whole_if_monetary": "12"
+          },
+          "included_local": {
+            "exact": "12/1",
+            "decimal": "12",
+            "rounded_whole_if_monetary": "12"
+          },
+          "excluded_prior_pfic_local": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        }
+      ]
+    },
+    {
+      "block_id": "reinvest1/held",
+      "purchase_id": "reinvest1",
+      "account": "example",
+      "acquisition_date": "2023-06-20",
+      "holding_start": "2023-06-21",
+      "units": {
+        "exact": "5/1",
+        "decimal": "5",
+        "rounded_whole_if_monetary": "5"
+      },
+      "purchase_currency": "CNY",
+      "allocated_purchase_cost_local": {
+        "exact": "80/1",
+        "decimal": "80",
+        "rounded_whole_if_monetary": "80"
+      },
+      "original_basis_usd": {
+        "exact": "128/11",
+        "decimal": "11.636363636363636363636363636363636363636363636363636363636363636363636363636364",
+        "rounded_whole_if_monetary": "12"
+      },
+      "sale_id": null,
+      "sale_date": null,
+      "allocated_net_proceeds_local": null,
+      "ending_basis_usd": {
+        "exact": "10625/888",
+        "decimal": "11.965090090090090090090090090090090090090090090090090090090090090090090090090090",
+        "rounded_whole_if_monetary": "12"
+      },
+      "ending_unreversed_inclusions": {
+        "exact": "3211/9768",
+        "decimal": "0.32872645372645372645372645372645372645372645372645372645372645372645372645372645",
+        "rounded_whole_if_monetary": "0"
+      },
+      "worksheets": [
+        {
+          "year": 2023,
+          "kind": "mtm_year_end",
+          "form_part": "IV",
+          "10a": {
+            "exact": "10625/888",
+            "decimal": "11.965090090090090090090090090090090090090090090090090090090090090090090090090090",
+            "rounded_whole_if_monetary": "12"
+          },
+          "10b": {
+            "exact": "128/11",
+            "decimal": "11.636363636363636363636363636363636363636363636363636363636363636363636363636364",
+            "rounded_whole_if_monetary": "12"
+          },
+          "10c": {
+            "exact": "3211/9768",
+            "decimal": "0.32872645372645372645372645372645372645372645372645372645372645372645372645372645",
+            "rounded_whole_if_monetary": "0"
+          },
+          "11": null,
+          "12": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "ordinary_income": {
+            "exact": "3211/9768",
+            "decimal": "0.32872645372645372645372645372645372645372645372645372645372645372645372645372645",
+            "rounded_whole_if_monetary": "0"
+          },
+          "ending_basis": {
+            "exact": "10625/888",
+            "decimal": "11.965090090090090090090090090090090090090090090090090090090090090090090090090090",
+            "rounded_whole_if_monetary": "12"
+          },
+          "ending_unreversed": {
+            "exact": "3211/9768",
+            "decimal": "0.32872645372645372645372645372645372645372645372645372645372645372645372645372645",
+            "rounded_whole_if_monetary": "0"
+          },
+          "unrecognized_decline": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        }
+      ],
+      "basis_history": [
+        {
+          "year": 2023,
+          "kind": "mtm_year_end",
+          "form_part": "IV",
+          "10a": {
+            "exact": "10625/888",
+            "decimal": "11.965090090090090090090090090090090090090090090090090090090090090090090090090090",
+            "rounded_whole_if_monetary": "12"
+          },
+          "10b": {
+            "exact": "128/11",
+            "decimal": "11.636363636363636363636363636363636363636363636363636363636363636363636363636364",
+            "rounded_whole_if_monetary": "12"
+          },
+          "10c": {
+            "exact": "3211/9768",
+            "decimal": "0.32872645372645372645372645372645372645372645372645372645372645372645372645372645",
+            "rounded_whole_if_monetary": "0"
+          },
+          "11": null,
+          "12": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          },
+          "ordinary_income": {
+            "exact": "3211/9768",
+            "decimal": "0.32872645372645372645372645372645372645372645372645372645372645372645372645372645",
+            "rounded_whole_if_monetary": "0"
+          },
+          "ending_basis": {
+            "exact": "10625/888",
+            "decimal": "11.965090090090090090090090090090090090090090090090090090090090090090090090090090",
+            "rounded_whole_if_monetary": "12"
+          },
+          "ending_unreversed": {
+            "exact": "3211/9768",
+            "decimal": "0.32872645372645372645372645372645372645372645372645372645372645372645372645372645",
+            "rounded_whole_if_monetary": "0"
+          },
+          "unrecognized_decline": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        }
+      ],
+      "distribution_history": []
+    }
+  ],
+  "summary_usd": {
+    "1291_current_ordinary_income": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    },
+    "1291_tax_before_credits": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    },
+    "1291_credit": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    },
+    "1291_additional_tax": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    },
+    "1291_interest": {
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    },
+    "ordinary_dividends": {
+      "exact": "128/11",
+      "decimal": "11.636363636363636363636363636363636363636363636363636363636363636363636363636364",
+      "rounded_whole_if_monetary": "12"
+    },
+    "mtm_ordinary_income": {
+      "exact": "23219905711/1236475768",
+      "decimal": "18.779102924562934095446017669146913682177393063153017649756319365249380285469533",
+      "rounded_whole_if_monetary": "19"
+    },
+    "other_losses_before_general_limitations": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    }
+  },
+  "fx_audit": [
+    {
+      "currency": "CNY",
+      "transaction_date": "2021-02-05",
+      "effective_date": "2020-12-31",
+      "foreign_per_usd": {
+        "exact": "327/50",
+        "decimal": "6.54",
+        "rounded_whole_if_monetary": "7"
+      },
+      "record_date": "2020-12-31",
+      "source": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange?filter=country%3Aeq%3AChina%2Crecord_date%3Agte%3A2020-09-30%2Crecord_date%3Alte%3A2021-12-31&page%5Bsize%5D=1000&sort=effective_date%2Crecord_date",
+      "policy": "treasury_latest_effective_on_or_before_v1"
+    },
+    {
+      "currency": "CNY",
+      "transaction_date": "2022-06-20",
+      "effective_date": "2022-03-31",
+      "foreign_per_usd": {
+        "exact": "3171/500",
+        "decimal": "6.342",
+        "rounded_whole_if_monetary": "6"
+      },
+      "record_date": "2022-03-31",
+      "source": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange?filter=country%3Aeq%3AChina%2Crecord_date%3Agte%3A2021-09-30%2Crecord_date%3Alte%3A2022-12-31&page%5Bsize%5D=1000&sort=effective_date%2Crecord_date",
+      "policy": "treasury_latest_effective_on_or_before_v1"
+    },
+    {
+      "currency": "CNY",
+      "transaction_date": "2022-12-31",
+      "effective_date": "2022-12-31",
+      "foreign_per_usd": {
+        "exact": "6897/1000",
+        "decimal": "6.897",
+        "rounded_whole_if_monetary": "7"
+      },
+      "record_date": "2022-12-31",
+      "source": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange?filter=country%3Aeq%3AChina%2Crecord_date%3Agte%3A2021-09-30%2Crecord_date%3Alte%3A2022-12-31&page%5Bsize%5D=1000&sort=effective_date%2Crecord_date",
+      "policy": "treasury_latest_effective_on_or_before_v1"
+    },
+    {
+      "currency": "CNY",
+      "transaction_date": "2023-06-20",
+      "effective_date": "2023-03-31",
+      "foreign_per_usd": {
+        "exact": "55/8",
+        "decimal": "6.875",
+        "rounded_whole_if_monetary": "7"
+      },
+      "record_date": "2023-03-31",
+      "source": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange?filter=country%3Aeq%3AChina%2Crecord_date%3Agte%3A2022-09-30%2Crecord_date%3Alte%3A2023-12-31&page%5Bsize%5D=1000&sort=effective_date%2Crecord_date",
+      "policy": "treasury_latest_effective_on_or_before_v1"
+    },
+    {
+      "currency": "CNY",
+      "transaction_date": "2023-09-05",
+      "effective_date": "2023-06-30",
+      "foreign_per_usd": {
+        "exact": "1817/250",
+        "decimal": "7.268",
+        "rounded_whole_if_monetary": "7"
+      },
+      "record_date": "2023-06-30",
+      "source": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange?filter=country%3Aeq%3AChina%2Crecord_date%3Agte%3A2022-09-30%2Crecord_date%3Alte%3A2023-12-31&page%5Bsize%5D=1000&sort=effective_date%2Crecord_date",
+      "policy": "treasury_latest_effective_on_or_before_v1"
+    },
+    {
+      "currency": "CNY",
+      "transaction_date": "2022-04-12",
+      "effective_date": "2022-03-31",
+      "foreign_per_usd": {
+        "exact": "3171/500",
+        "decimal": "6.342",
+        "rounded_whole_if_monetary": "6"
+      },
+      "record_date": "2022-03-31",
+      "source": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange?filter=country%3Aeq%3AChina%2Crecord_date%3Agte%3A2021-09-30%2Crecord_date%3Alte%3A2022-12-31&page%5Bsize%5D=1000&sort=effective_date%2Crecord_date",
+      "policy": "treasury_latest_effective_on_or_before_v1"
+    },
+    {
+      "currency": "CNY",
+      "transaction_date": "2023-12-31",
+      "effective_date": "2023-12-31",
+      "foreign_per_usd": {
+        "exact": "888/125",
+        "decimal": "7.104",
+        "rounded_whole_if_monetary": "7"
+      },
+      "record_date": "2023-12-31",
+      "source": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange?filter=country%3Aeq%3AChina%2Crecord_date%3Agte%3A2022-09-30%2Crecord_date%3Alte%3A2023-12-31&page%5Bsize%5D=1000&sort=effective_date%2Crecord_date",
+      "policy": "treasury_latest_effective_on_or_before_v1"
+    }
+  ],
+  "interest_sources": [
+    "https://www.irs.gov/irb/2024-49_IRB",
+    "https://www.irs.gov/payments/quarterly-interest-rates"
+  ],
+  "benchmark_status": "Known differences from supplied Andrew Mitchel examples; see docs/benchmark_comparison.json and docs/VALIDATION.md",
+  "notes": [
+    "External benchmark differences remain disclosed; these worksheets have not been independently certified for filing.",
+    "Confirmation dates are treated as acquisition/disposition dates under the selected input policy. Verify they represent the tax-effective transaction dates.",
+    "Treasury quarterly rates are the user-selected approximation, not a claim that quarterly rates equal daily spot rates.",
+    "Part V annual dividend totals repeat across event worksheets; do not add those repeated totals.",
+    "Other losses are unnetted and subject to general capital loss, wash sale and other limitations outside this calculator.",
+    "Fund identity, ownership percentages, taxpayer identity, elections and filing exceptions require completion outside these calculation worksheets."
+  ],
+  "input_sha256": "3097ce582dc0ac061e6c570ef529ca0de31d34137890a107ac593889d0ecae86",
+  "input_filename": "fund.csv"
+}

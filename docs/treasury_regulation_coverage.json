@@ -1,0 +1,101 @@
+{
+  "source": "https://www.irs.gov/pub/irs-regs/td9123.pdf",
+  "source_type": "Treasury Decision 9123 final regulations, published May 3, 2004",
+  "checked_on": "2026-10-15",
+  "scope": "All 13 numbered/unnumbered examples within section 1.1296-1 in TD 9123 inventoried. Not an audit of every PFIC regulation.",
+  "test_file": "tests/test_treasury_regulations.py",
+  "new_tests": 17,
+  "suite_tests": 109,
+  "examples": [
+    {
+      "citation": "1.1296-1(a)(3)(iii)",
+      "scenario": "Unreversed inclusions: $150 cost, $240 value, $90 transition gain",
+      "coverage": "tested",
+      "limits": "Dollar facts retained; integration years 2005/06/07 shifted to 2021/22/23. Interest excluded from basis/inclusions."
+    },
+    {
+      "citation": "1.1296-1(c)(7) Example 1",
+      "scenario": "$200 ordinary gain; basis $1,200",
+      "coverage": "tested",
+      "limits": "Exact primitive; engine PFIC/election year shifted to 2023; no step-up to $1,100."
+    },
+    {
+      "citation": "1.1296-1(c)(7) Example 2",
+      "scenario": "$300 capital gain after PFIC cessation",
+      "coverage": "unsupported",
+      "limits": "No annual PFIC-status history; do not submit cessation facts under the continuous-PFIC input contract."
+    },
+    {
+      "citation": "1.1296-1(c)(7) Example 3",
+      "scenario": "$100 ordinary sale loss",
+      "coverage": "tested",
+      "limits": "Exact primitive and date-adapted engine integration."
+    },
+    {
+      "citation": "1.1296-1(c)(7) Example 4",
+      "scenario": "$100 capital loss after PFIC cessation",
+      "coverage": "unsupported",
+      "limits": "No annual PFIC-status history; ordinary-loss primitive is not valid for this example."
+    },
+    {
+      "citation": "1.1296-1(c)(7) Example 5",
+      "scenario": "$200 ordinary plus $100 capital loss",
+      "coverage": "tested_amounts",
+      "limits": "Engine exports $100 other loss; capital character/holding-period reporting remains outside program."
+    },
+    {
+      "citation": "1.1296-1(c)(7) Example 6",
+      "scenario": "Two lots; $300 inclusion; $200 blocked decline; identified second-lot $100 loss",
+      "coverage": "tested_with_scope_limit",
+      "limits": "Year-end basis and inclusions tested end-to-end. Specific identification sale tested as a primitive only. Separate FIFO variant expects $100 ordinary gain selling first lot, not $100 loss."
+    },
+    {
+      "citation": "1.1296-1(d)(2)(ii)",
+      "scenario": "Partnership inside/outside basis and partner-specific allocations",
+      "coverage": "unsupported",
+      "limits": "Direct individual ownership only; cannot encode partnership ownership in current schema."
+    },
+    {
+      "citation": "1.1296-1(d)(5)(ii)",
+      "scenario": "Immigration dual basis and subsequent ordinary/capital sale split",
+      "coverage": "rejection_test",
+      "limits": "Pre-residency input is rejected before valuation/calculation; no claim of supporting dual basis."
+    },
+    {
+      "citation": "1.1296-1(h)(4) Example 1",
+      "scenario": "QEF to MTM; loss of marketability terminates election",
+      "coverage": "unsupported",
+      "limits": "QEF and election termination history not implemented."
+    },
+    {
+      "citation": "1.1296-1(h)(4) Example 2",
+      "scenario": "Marketability restored; new MTM election",
+      "coverage": "unsupported",
+      "limits": "Election interruption and re-election not implemented."
+    },
+    {
+      "citation": "1.1296-1(i)(4) Example 1",
+      "scenario": "$10 transition deemed sale and basis increase",
+      "coverage": "tested",
+      "limits": "Original 1992/2005 allocation primitive; engine year shifted to 2023. Example specifies only excess: $100 basis/$110 value explicit test normalization. No official numeric interest result supplied."
+    },
+    {
+      "citation": "1.1296-1(i)(4) Example 2",
+      "scenario": "RIC shareholder special transition interest rule",
+      "coverage": "unsupported",
+      "limits": "Individual shareholder scope. Owning a mutual fund does not make the individual a RIC taxpayer."
+    }
+  ],
+  "rule_derived_tests": [
+    "1.1296-1(i)(2)(i): election-year distribution remains subject to 1291",
+    "1.1291-1(c)(3): ongoing MTM distribution outside 1291",
+    "1.1296-1(a)(3): subsequent decline limited by full prior transition inclusion"
+  ],
+  "other_limits": [
+    "Marketability and valid election remain explicitly confirmed inputs; 1.1296-2 marketability examples are not automatically evaluated.",
+    "1992 proposed 1.1291-2 distribution regulations are not represented as final Treasury regulations or as validated examples here.",
+    "Historical form years outside 2018-2025 remain unsupported; pure mathematical tests do not extend form-year support.",
+    "Cessation/partnership/QEF/RIC facts are not represented in the input schema. These are documented exclusions, not automatic detection/rejection tests.",
+    "Existing Andrew Mitchel interest discrepancies and taxpayer-specific due-date review remain unresolved; this suite does not certify filing readiness."
+  ]
+}

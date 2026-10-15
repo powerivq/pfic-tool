@@ -1,0 +1,7 @@
+id,type,date,sequence,currency,amount,units,fee,eligibility_date,eligibility_sequence,linked_dividend_id,withholding,account,source
+buy1,BUY,2021-02-05,1,CNY,999,100,1,,,,0,example,Synthetic purchase
+buy2,BUY,2022-04-12,1,CNY,1199,100,1,,,,0,example,Synthetic purchase
+cash1,DIVIDEND,2022-06-20,1,CNY,40,0,0,2022-06-15,,,0,example,Synthetic cash dividend
+cash2,DIVIDEND,2023-06-20,1,CNY,80,0,0,2023-06-15,,,0,example,Synthetic reinvested dividend
+reinvest1,REINVEST,2023-06-20,2,CNY,80,5,0,,,cash2,0,example,Synthetic linked purchase
+sell1,SELL,2023-09-05,1,CNY,2080,130,2,,,,0,example,Synthetic partial FIFO sale

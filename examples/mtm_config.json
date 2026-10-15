@@ -1,0 +1,22 @@
+{
+  "tax_year": 2023,
+  "fund_name": "Synthetic CNY fund — MTM transition in 2022",
+  "first_pfic_year": 2021,
+  "us_person_since": "2000-01-01",
+  "complete_history": true,
+  "ordinary_dividends_confirmed": true,
+  "regime": "mtm",
+  "election_year": 2022,
+  "mtm_eligible": true,
+  "election_valid": true,
+  "valuations": {
+    "2022": {"unit_value": "15", "currency": "CNY", "source": "Synthetic fixture"},
+    "2023": {"unit_value": "17", "currency": "CNY", "source": "Synthetic fixture"}
+  },
+  "due_dates": {
+    "2021": "2022-04-15",
+    "2022": "2023-04-15",
+    "2023": "2024-04-15"
+  },
+  "ending_units": "75"
+}

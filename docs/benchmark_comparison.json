@@ -1,0 +1,105 @@
+{
+  "retrieved": "2026-10-15",
+  "validation_status": "DISCREPANCIES_RECORDED_NOT_CERTIFIED_MATCH",
+  "due_date_policy_for_comparison": "Explicit unadjusted April 15 of subsequent year; reference calculator does not expose its due-date assumptions",
+  "holding_period_policy": "Exclude acquisition day; include event day",
+  "rounding": "Whole dollars only at output; retain exact annual tax and FTC internally",
+  "cases": [
+    {
+      "case": "sale",
+      "reference_url": "https://www.andrewmitchel.com/resources/pfic/1291_fund_sale",
+      "inputs": {
+        "purchase_date": "2011-12-05",
+        "event_date": "2025-06-01",
+        "first_pfic_year": 2015,
+        "excess_usd": 100000,
+        "excess_foreign_tax_credit_usd": 0
+      },
+      "comparisons": [
+        {
+          "line": "16b",
+          "reference_whole_dollars": 25858,
+          "program_whole_dollars": 25858,
+          "difference": 0,
+          "matches": true
+        },
+        {
+          "line": "16c",
+          "reference_whole_dollars": 28013,
+          "program_whole_dollars": 28011,
+          "difference": -2,
+          "matches": false
+        },
+        {
+          "line": "16d",
+          "reference_whole_dollars": 0,
+          "program_whole_dollars": 0,
+          "difference": 0,
+          "matches": true
+        },
+        {
+          "line": "16e",
+          "reference_whole_dollars": 28013,
+          "program_whole_dollars": 28011,
+          "difference": -2,
+          "matches": false
+        },
+        {
+          "line": "16f",
+          "reference_whole_dollars": 10958,
+          "program_whole_dollars": 11183,
+          "difference": 225,
+          "matches": false
+        }
+      ]
+    },
+    {
+      "case": "distribution",
+      "reference_url": "https://www.andrewmitchel.com/resources/pfic/1291_fund_distribution",
+      "inputs": {
+        "purchase_date": "2011-12-05",
+        "event_date": "2025-06-01",
+        "first_pfic_year": 2015,
+        "excess_usd": 75000,
+        "excess_foreign_tax_credit_usd": 11250
+      },
+      "comparisons": [
+        {
+          "line": "16b",
+          "reference_whole_dollars": 19393,
+          "program_whole_dollars": 19393,
+          "difference": 0,
+          "matches": true
+        },
+        {
+          "line": "16c",
+          "reference_whole_dollars": 21008,
+          "program_whole_dollars": 21008,
+          "difference": 0,
+          "matches": true
+        },
+        {
+          "line": "16d",
+          "reference_whole_dollars": 8339,
+          "program_whole_dollars": 8341,
+          "difference": 2,
+          "matches": false
+        },
+        {
+          "line": "16e",
+          "reference_whole_dollars": 12669,
+          "program_whole_dollars": 12667,
+          "difference": -2,
+          "matches": false
+        },
+        {
+          "line": "16f",
+          "reference_whole_dollars": 4995,
+          "program_whole_dollars": 5098,
+          "difference": 103,
+          "matches": false
+        }
+      ]
+    }
+  ]
+}
