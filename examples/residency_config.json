@@ -1,0 +1,14 @@
+{
+  "tax_year": 2023,
+  "fund_name": "Synthetic pre-residency fund",
+  "first_pfic_year": 2018,
+  "us_person_since": "2022-07-17",
+  "complete_history": true,
+  "ordinary_dividends_confirmed": true,
+  "regime": "1291",
+  "due_dates": {
+    "2022": "2023-04-15",
+    "2023": "2024-04-15"
+  },
+  "ending_units": "0"
+}

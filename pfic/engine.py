@@ -8,7 +8,7 @@ import hashlib
 from .model import Config, Transaction, read_csv, ZERO
 from .numbers import Q, InputError
 from .rates import TreasuryFX
-from .tax import holding_days, section1291, mtm_year_end, mtm_sale, distribution_excess
+from .tax import holding_days, section1291, mtm_year_end, mtm_sale, distribution_excess, allocation_periods, residency_mtm_sale
 
 @dataclass(frozen=True)
 class Block:
@@ -86,7 +86,7 @@ def _validate_links(transactions):
 def _regime(config,b,year):
     if config.regime=='1291' or year<config.election_year:return '1291'
     start_year=(b.buy.date+timedelta(days=1)).year
-    if year==config.election_year and max(start_year,config.first_pfic_year)<year:return 'transition'
+    if year==config.election_year and max(start_year,config.effective_pfic_start.year)<year:return 'transition'
     return 'mtm'
 
 
@@ -94,7 +94,7 @@ def calculate(transactions,config,fx=None):
     """Return an auditable report. Accepts Transaction objects; no file I/O required.
 
     Full ordinary acquisition/dividend history; direct individual calendar-year
-    ownership only. No QEF, transfers, PFIC cessation, residency transitions,
+    ownership with one uninterrupted U.S.-person period. No QEF, transfers, PFIC cessation,
     corporate actions, return-of-capital distributions, or automatic elections.
     """
     if not isinstance(config,Config):raise InputError('config must be Config')
@@ -106,8 +106,6 @@ def calculate(transactions,config,fx=None):
     end=date(config.tax_year,12,31)
     active=sorted([t for t in txs if t.date<=end],key=lambda t:(t.date,t.sequence,t.account,t.id))
     if not active:raise InputError('No transactions on/before selected tax year')
-    if min(t.date for t in active)<config.us_person_since:
-        raise InputError('Pre-US-residency holdings require reviewed transition basis; unsupported')
     if any(t.type=='DIVIDEND' for t in active) and not config.ordinary_dividends_confirmed:
         raise InputError('Confirm these are ordinary distributions, not capital returns or stock dividends')
     _validate_links(active)
@@ -124,7 +122,25 @@ def calculate(transactions,config,fx=None):
     output=[]
     for b in blocks:
         basis=fx.usd(b.purchase_cost,b.buy.currency,b.buy.date)
-        original_basis=basis;unreversed=ZERO;history=[];works=[];dist_history=[]
+        original_basis=basis;general_basis=basis;unreversed=ZERO;history=[];works=[];dist_history=[]
+        pre_residency=b.buy.date<config.us_person_since
+        owned_at_residency=b.sale is None or b.sale.date>=config.us_person_since
+        residency_mtm=(pre_residency and owned_at_residency and config.regime=='mtm'
+                       and config.election_year==config.us_person_since.year
+                       and config.election_year<=config.tax_year)
+        if residency_mtm:
+            if config.us_person_since!=date(config.us_person_since.year,1,1):
+                raise InputError('First-residency-year MTM with midyear residency requires reviewed transition treatment; use 1291 or a later valid election')
+            if config.effective_pfic_start!=config.us_person_since:
+                raise InputError('Residency MTM uplift requires PFIC status at residency start')
+            valuation=config.residency_opening_valuation
+            if valuation is None:
+                raise InputError('residency_opening_valuation required for first-residency-year MTM')
+            opening_fmv=fx.usd(valuation.unit_value*b.units,valuation.currency,config.us_person_since)
+            basis=max(general_basis,opening_fmv)
+            history.append({'action':'residency_mtm_opening','date':config.us_person_since,
+                            'opening_fmv_usd':opening_fmv,'general_basis_usd':general_basis,
+                            'mtm_basis_usd':basis,'unreversed_inclusions':ZERO})
         distributions=allocations.get(b.id,[])
         # Preserve original acquisition even when §1296 resets PFIC holding periods.
         for year in range(b.buy.date.year,config.tax_year+1):
@@ -146,19 +162,24 @@ def calculate(transactions,config,fx=None):
                 for d in current:
                     tx=d['transaction'];norm=normalize(d['amount'],tx.currency,tx.date)
                     fraction=excess/current_total if current_total else ZERO
-                    event_excess_local=d['amount']*fraction
+                    taxable=tx.date>=config.us_person_since
+                    pfic_event=taxable and tx.date>=config.effective_pfic_start
+                    # Preserve annual testing/apportionment, but pre-residency events
+                    # are history only, and pre-PFIC resident events are ordinary dividends.
+                    event_fraction=fraction if pfic_event else ZERO
+                    event_excess_local=d['amount']*event_fraction
                     event_excess=fx.usd(event_excess_local,tx.currency,tx.date)
                     gross_usd=fx.usd(d['amount'],tx.currency,tx.date)
                     nonexcess_usd=gross_usd-event_excess
-                    counts=holding_days(b.buy.date,tx.date) if event_excess else {}
-                    prior_pfic_days=sum(n for y,n in counts.items() if config.first_pfic_year<=y<year)
-                    excluded_fraction=Q(prior_pfic_days)/sum(counts.values()) if counts else ZERO
+                    periods=allocation_periods(b.buy.date,tx.date,config.first_pfic_year,config.effective_pfic_start) if event_excess else []
+                    prior_pfic_days=sum(p['days'] for p in periods if p['category']=='prior_PFIC')
+                    excluded_fraction=Q(prior_pfic_days)/sum(p['days'] for p in periods) if periods else ZERO
                     included_local=d['amount']-event_excess_local*excluded_fraction
-                    dist_history.append({'distribution_id':tx.id,'date':tx.date,'currency':tx.currency,'gross_local':d['amount'],'included_local':included_local,'excluded_prior_pfic_local':d['amount']-included_local})
-                    if year==config.tax_year:
-                        tax_credit=fx.usd(d['withholding']*fraction,tx.currency,tx.date) if config.claim_foreign_tax_credit else ZERO
-                        tax=section1291(event_excess,b.buy.date,tx.date,config.first_pfic_year,config.due_dates,tax_credit) if event_excess else None
-                        record={'kind':'dividend','transaction_id':tx.id,'payment_date':tx.date,'eligibility_date':tx.eligibility_date,'eligible_units':d['eligible_units'],'total_eligible_units':d['total_eligible_units'],'currency':currency,'distribution_currency':tx.currency,'allocated_dividend_local':d['amount'],'allocated_dividend_usd':gross_usd,'nonexcess_dividend_usd':nonexcess_usd,'withholding_local':d['withholding'],'withholding_usd':fx.usd(d['withholding'],tx.currency,tx.date),'current_year_foreign_tax_credit_candidate_usd':(fx.usd(d['withholding']*(1-fraction),tx.currency,tx.date)+(tax['current_year_credit_candidate'] if tax else ZERO)) if config.claim_foreign_tax_credit else ZERO,'15a':current_total,'15b':prior_total if preceding else None,'15c':average if preceding else None,'15d':threshold if preceding else None,'annual_excess':excess,'event_excess_calculation_currency':norm*fraction,'event_excess_usd':event_excess,'prior_years_in_average':preceding,'tax':tax,'regime':mode,'history_included_local':included_local}
+                    dist_history.append({'distribution_id':tx.id,'date':tx.date,'currency':tx.currency,'gross_local':d['amount'],'included_local':included_local,'excluded_prior_pfic_local':d['amount']-included_local,'us_taxable_event':taxable,'lookback_only':not taxable})
+                    if year==config.tax_year and taxable:
+                        tax_credit=fx.usd(d['withholding']*event_fraction,tx.currency,tx.date) if config.claim_foreign_tax_credit else ZERO
+                        tax=section1291(event_excess,b.buy.date,tx.date,config.first_pfic_year,config.due_dates,tax_credit,pfic_start_date=config.effective_pfic_start) if event_excess else None
+                        record={'kind':'dividend','transaction_id':tx.id,'payment_date':tx.date,'eligibility_date':tx.eligibility_date,'eligible_units':d['eligible_units'],'total_eligible_units':d['total_eligible_units'],'currency':currency,'distribution_currency':tx.currency,'allocated_dividend_local':d['amount'],'allocated_dividend_usd':gross_usd,'nonexcess_dividend_usd':nonexcess_usd,'withholding_local':d['withholding'],'withholding_usd':fx.usd(d['withholding'],tx.currency,tx.date),'current_year_foreign_tax_credit_candidate_usd':(fx.usd(d['withholding']*(1-event_fraction),tx.currency,tx.date)+(tax['current_year_credit_candidate'] if tax else ZERO)) if config.claim_foreign_tax_credit else ZERO,'15a':current_total,'15b':prior_total if preceding else None,'15c':average if preceding else None,'15d':threshold if preceding else None,'annual_excess':excess,'event_excess_calculation_currency':norm*event_fraction,'event_excess_usd':event_excess,'prior_years_in_average':preceding,'tax':tax,'regime':mode,'history_included_local':included_local}
                         # 15a-d are annual block totals repeated for reference, never summed across events.
                         if config.tax_year>=2025:
                             record['15e(1)']=excess;record['15e(2)']=event_excess
@@ -170,41 +191,47 @@ def calculate(transactions,config,fx=None):
                         else:record['form_part']='V'
                         works.append(record)
             if b.sale and b.sale.date.year==year:
-                proceeds=fx.usd(b.proceeds,b.sale.currency,b.sale.date);gain=proceeds-basis
+                proceeds=fx.usd(b.proceeds,b.sale.currency,b.sale.date);gain=proceeds-general_basis
                 # A wash-sale adjustment changes basis and subsequent PFIC computations.
-                if gain<0:
+                if gain<0 and b.sale.date>=config.us_person_since:
                     replacement=[t.id for t in txs if t.type in ('BUY','REINVEST') and t.id!=b.buy.id and abs((t.date-b.sale.date).days)<=30]
                     if b.units<b.buy.units and abs((b.buy.date-b.sale.date).days)<=30:
                         replacement.append(b.buy.id+' (other shares in same acquisition)')
                     if replacement:
                         raise InputError(f'{b.sale.id}: loss with potential replacement acquisitions {replacement}; reviewed wash-sale basis required')
-                if year==config.tax_year:
-                    if mode in ('1291','transition'):
-                        tax=section1291(gain,b.buy.date,b.sale.date,config.first_pfic_year,config.due_dates) if gain>0 else None
+                if year==config.tax_year and b.sale.date>=config.us_person_since:
+                    if b.sale.date<config.effective_pfic_start:
+                        works.append({'kind':'sale','transaction_id':b.sale.id,'date':b.sale.date,
+                                      'regime':'pre_PFIC','form_part':'capital_outside_8621',
+                                      'proceeds_usd':proceeds,'adjusted_basis_usd':general_basis,
+                                      'capital_gain_usd':max(ZERO,gain),'other_loss':max(ZERO,-gain),'tax':None})
+                    elif mode in ('1291','transition'):
+                        tax=section1291(gain,b.buy.date,b.sale.date,config.first_pfic_year,config.due_dates,pfic_start_date=config.effective_pfic_start) if gain>0 else None
                         works.append({'kind':'sale','transaction_id':b.sale.id,'date':b.sale.date,'regime':mode,'form_part':'V','proceeds_usd':proceeds,'adjusted_basis_usd':basis,'15f':gain,'tax':tax,'other_loss':max(ZERO,-gain)})
                     else:
-                        works.append({'kind':'sale','transaction_id':b.sale.id,'date':b.sale.date,'regime':mode,'form_part':'IV',**mtm_sale(basis,proceeds,unreversed)})
-                history.append({'year':year,'action':'sale','basis':basis,'proceeds_usd':proceeds,'gain_usd':gain,'unreversed_inclusions':unreversed})
+                        works.append({'kind':'sale','transaction_id':b.sale.id,'date':b.sale.date,'regime':mode,'form_part':'IV',**residency_mtm_sale(general_basis,basis,proceeds,unreversed)})
+                history.append({'year':year,'action':'sale','basis':general_basis,'mtm_basis_usd':basis,'us_taxable_event':b.sale.date>=config.us_person_since,'proceeds_usd':proceeds,'gain_usd':gain,'unreversed_inclusions':unreversed})
             alive=b.sale is None or b.sale.date.year>year
-            if alive and mode in ('mtm','transition'):
+            if alive and mode in ('mtm','transition') and year>=config.us_person_since.year:
                 valuation=config.valuations.get(year)
                 if valuation is None:raise InputError(f'Year-end unit valuation required for {year}')
                 fmv=fx.usd(valuation.unit_value*b.units,valuation.currency,date(year,12,31))
                 old_basis=basis
                 if mode=='transition':
-                    gain=max(ZERO,fmv-basis);basis+=gain;unreversed+=gain
+                    gain=max(ZERO,fmv-basis);basis+=gain;general_basis+=gain;unreversed+=gain
                     record={'year':year,'kind':'mtm_transition','date':date(year,12,31),'form_part':'V','15f':gain,'fair_market_value_usd':fmv,'opening_basis':old_basis,'ending_basis':basis,'ending_unreversed':unreversed,'unrecognized_decline':max(ZERO,old_basis-fmv)}
                     if year==config.tax_year:
-                        record['tax']=section1291(gain,b.buy.date,date(year,12,31),config.first_pfic_year,config.due_dates) if gain else None
+                        record['tax']=section1291(gain,b.buy.date,date(year,12,31),config.first_pfic_year,config.due_dates,pfic_start_date=config.effective_pfic_start) if gain else None
                         works.append(record)
                 else:
                     record={'year':year,'kind':'mtm_year_end','form_part':'IV',**mtm_year_end(basis,fmv,unreversed)}
-                    basis=record['ending_basis'];unreversed=record['ending_unreversed']
+                    basis=record['ending_basis'];general_basis+=record['ordinary_income'];unreversed=record['ending_unreversed']
                     if year==config.tax_year:works.append(record)
+                record['general_ending_basis_usd']=general_basis
                 history.append(record)
-        output.append({'block_id':b.id,'purchase_id':b.buy.id,'account':b.buy.account,'acquisition_date':b.buy.date,'holding_start':b.buy.date+timedelta(days=1),'units':b.units,'purchase_currency':b.buy.currency,'allocated_purchase_cost_local':b.purchase_cost,'original_basis_usd':original_basis,'sale_id':b.sale.id if b.sale else None,'sale_date':b.sale.date if b.sale else None,'allocated_net_proceeds_local':b.proceeds,'ending_basis_usd':basis if b.sale is None else ZERO,'ending_unreversed_inclusions':unreversed if b.sale is None else ZERO,'worksheets':works,'basis_history':history,'distribution_history':dist_history})
+        output.append({'block_id':b.id,'purchase_id':b.buy.id,'account':b.buy.account,'acquisition_date':b.buy.date,'holding_start':b.buy.date+timedelta(days=1),'units':b.units,'purchase_currency':b.buy.currency,'allocated_purchase_cost_local':b.purchase_cost,'original_basis_usd':original_basis,'sale_id':b.sale.id if b.sale else None,'sale_date':b.sale.date if b.sale else None,'allocated_net_proceeds_local':b.proceeds,'ending_basis_usd':general_basis if b.sale is None else ZERO,'ending_mtm_basis_usd':basis if b.sale is None else ZERO,'effective_pfic_start':config.effective_pfic_start,'pre_residency_acquisition':pre_residency,'ending_unreversed_inclusions':unreversed if b.sale is None else ZERO,'worksheets':works,'basis_history':history,'distribution_history':dist_history})
     # Summary values are derived from the very same worksheet values, not recomputed.
-    summary={'1291_current_ordinary_income':ZERO,'1291_tax_before_credits':ZERO,'1291_credit':ZERO,'1291_additional_tax':ZERO,'1291_interest':Decimal(0),'ordinary_dividends':ZERO,'mtm_ordinary_income':ZERO,'other_losses_before_general_limitations':ZERO}
+    summary={'1291_current_ordinary_income':ZERO,'1291_tax_before_credits':ZERO,'1291_credit':ZERO,'1291_additional_tax':ZERO,'1291_interest':Decimal(0),'ordinary_dividends':ZERO,'mtm_ordinary_income':ZERO,'other_losses_before_general_limitations':ZERO,'capital_gains_before_general_limitations':ZERO}
     with localcontext() as ctx:
         ctx.prec=80
         for b in output:
@@ -214,7 +241,8 @@ def calculate(transactions,config,fx=None):
                 if w['kind']=='dividend':summary['ordinary_dividends']+=w['nonexcess_dividend_usd']
                 summary['mtm_ordinary_income']+=w.get('ordinary_income',ZERO)
                 summary['other_losses_before_general_limitations']+=w.get('other_loss',ZERO)
-    report={'schema_version':'1.0','reporting_rounding':'whole dollars, half up, only at output','fund_name':config.fund_name,'tax_year':config.tax_year,'form_revision':'12/2025' if config.tax_year>=2025 else '12/2018','status':'calculation_worksheets_not_a_complete_signed_return','config':config,'ending_units':held,'blocks':output,'summary_usd':summary,'fx_audit':fx.audit,'interest_sources':__import__('pfic.tax',fromlist=['interest_schedule']).interest_schedule()['sources'],'benchmark_status':'Known differences from supplied Andrew Mitchel examples; see docs/benchmark_comparison.json and docs/VALIDATION.md', 'notes':['External benchmark differences remain disclosed; these worksheets have not been independently certified for filing.','Confirmation dates are treated as acquisition/disposition dates under the selected input policy. Verify they represent the tax-effective transaction dates.','Treasury quarterly rates are the user-selected approximation, not a claim that quarterly rates equal daily spot rates.','Part V annual dividend totals repeat across event worksheets; do not add those repeated totals.','Other losses are unnetted and subject to general capital loss, wash sale and other limitations outside this calculator.','Fund identity, ownership percentages, taxpayer identity, elections and filing exceptions require completion outside these calculation worksheets.']}
+                summary['capital_gains_before_general_limitations']+=w.get('capital_gain_usd',ZERO)
+    report={'schema_version':'1.1','reporting_rounding':'whole dollars, half up, only at output','fund_name':config.fund_name,'tax_year':config.tax_year,'form_revision':'12/2025' if config.tax_year>=2025 else '12/2018','status':'calculation_worksheets_not_a_complete_signed_return','config':config,'ending_units':held,'blocks':output,'summary_usd':summary,'fx_audit':fx.audit,'interest_sources':__import__('pfic.tax',fromlist=['interest_schedule']).interest_schedule()['sources'],'benchmark_status':'Known differences from supplied Andrew Mitchel examples; see docs/benchmark_comparison.json and docs/VALIDATION.md', 'notes':['One uninterrupted U.S.-person period is modeled; pre-residency transactions remain in FIFO/history but are not current U.S. income events. Nonresident U.S.-source/ECI taxation, treaty overrides and repeated residency changes are outside this calculator.','Capital gains from dual-basis residency MTM sales are reported separately; complete capital-gain reporting outside Form 8621.','External benchmark differences remain disclosed; these worksheets have not been independently certified for filing.','Confirmation dates are treated as acquisition/disposition dates under the selected input policy. Verify they represent the tax-effective transaction dates.','Treasury quarterly rates are the user-selected approximation, not a claim that quarterly rates equal daily spot rates.','Part V annual dividend totals repeat across event worksheets; do not add those repeated totals.','Other losses are unnetted and subject to general capital loss, wash sale and other limitations outside this calculator.','Fund identity, ownership percentages, taxpayer identity, elections and filing exceptions require completion outside these calculation worksheets.']}
     return report
 
 

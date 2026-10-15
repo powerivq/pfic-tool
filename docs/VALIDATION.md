@@ -77,7 +77,8 @@ validation limitation, not a passing benchmark.
 
 The software emits reviewable calculation worksheets, not an official completed
 Form 8621 PDF. Part I identity/annual summary, actual election paperwork, QEF,
-pre-residency transition basis, corporate actions, automatic wash-sale adjustments,
+midyear first-residency-year MTM, dual-basis MTM loss sales, corporate actions,
+automatic wash-sale adjustments,
 and the taxpayer's full income tax/NIIT/FTC calculations are outside this version.
 Supported form mappings are 2018–2025. No missing date, valuation or rate is
 silently manufactured.
@@ -88,8 +89,8 @@ Added 17 tests in `tests/test_treasury_regulations.py`; all 104 suite tests pass
 The independent source is Treasury Decision 9123, final regulations:
 https://www.irs.gov/pub/irs-regs/td9123.pdf .
 `treasury_regulation_coverage.json` inventories all 13 examples within its
-section 1.1296-1, including unsupported scenarios. Six examples have computational
-coverage (some with stated scope limits), one has a rejection test, and six
+section 1.1296-1, including unsupported scenarios. Seven examples have computational
+coverage (some with stated scope limits), and six
 remain unsupported. Additional tests cover related dividend coordination rules.
 
 Tests preserve the regulation's dollar amounts. Where full engine tests require
@@ -106,9 +107,8 @@ general capital-loss reporting remain outside this calculator.
 
 Unsupported examples are not disguised as passing numerical tests. PFIC
 cessation, partnership allocation, QEF/election interruption, and RIC taxpayer
-rules need additional inputs and implementation. Pre-residency holdings are
-explicitly rejected. No production calculation change was necessary for the
-supported examples. Existing benchmark and deadline-review limitations remain.
+rules need additional inputs and implementation. The residency example now has full numerical integration coverage
+(see the update below). Existing benchmark and deadline-review limitations remain.
 
 Distribution FTC scope update: five additional regression tests verify eligible
 block/year allocation, claim-disabled behavior, creditability confirmation,
@@ -129,3 +129,23 @@ A calendar-year interest-window hypothesis explains much of the external
 benchmark gap, but has not established the external calculators' implementation.
 It is not a replacement for the statutory due-date rule. No benchmark discrepancy
 is concealed by updating expected values to production output.
+
+
+## Residency implementation update (0.2.0)
+
+All 139 tests pass. Thirty tests in `tests/test_residency.py` cover exact
+midyear §1291 splits, an independent day-by-day allocation oracle, leap days,
+original purchase/sale FX, pre-residency FIFO sales and reinvestment, distribution
+lookback and FTC conservation, original acquisition dates, optional PFIC status,
+missing inputs and JSON/HTML/CLI integration. Existing 109 tests remain in the
+suite; two rejection expectations were replaced with supported behavior or a
+specific missing-valuation guard.
+
+The final regulation's 1.1296-1(d)(5)(ii) example preserves its dollar facts:
+50 original basis, 100 opening FMV, 110 closing FMV, 10 inclusion, general basis
+60, MTM basis 110; sale at 120 yields 60 total gain = 10 ordinary + 50 capital.
+Residency/sale years are adapted to 2023/2024 for available form mappings.
+Additional tests cover partial sales, opening FMV below cost, restricted declines,
+later-election coordination and explicitly rejected unresolved branches.
+Tests establish the asserted scenarios, not independent certification of all tax
+interpretations. Existing benchmark discrepancies remain unchanged.

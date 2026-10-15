@@ -101,6 +101,9 @@ class Config:
     claim_foreign_tax_credit: bool = False
     foreign_taxes_creditable: bool = False
     ending_units: Fraction | None = None
+    # Optional taxpayer-specific PFIC boundary; cannot precede either factual boundary.
+    pfic_start_date: date | None = None
+    residency_opening_valuation: Valuation | None = None
 
     def __post_init__(self):
         object.__setattr__(self, 'us_person_since', day(self.us_person_since))
@@ -111,6 +114,14 @@ class Config:
             raise InputError('Verified Form 8621 mappings currently support tax years 2018–2025')
         if type(self.first_pfic_year) is not int or not 1987 <= self.first_pfic_year <= self.tax_year:
             raise InputError('first_pfic_year must be 1987 through reporting year')
+        if self.us_person_since > date(self.tax_year,12,31):
+            raise InputError('Reporting year precedes U.S. residency')
+        if self.pfic_start_date is not None:
+            object.__setattr__(self,'pfic_start_date',day(self.pfic_start_date))
+            if self.pfic_start_date < max(self.us_person_since,date(self.first_pfic_year,1,1)):
+                raise InputError('pfic_start_date cannot precede residency or first_pfic_year')
+        if self.residency_opening_valuation is not None and not isinstance(self.residency_opening_valuation,Valuation):
+            raise InputError('residency_opening_valuation must be a Valuation')
         if not self.complete_history:
             raise InputError('Complete acquisition/distribution history required; opening-state import not yet supported')
         if self.regime not in ('1291', 'mtm'):
@@ -118,6 +129,10 @@ class Config:
         if self.regime == 'mtm':
             if type(self.election_year) is not int or self.election_year < self.first_pfic_year or not self.mtm_eligible or not self.election_valid:
                 raise InputError('MTM needs eligible marketable stock, a confirmed valid election, and election_year')
+            if self.election_year < self.us_person_since.year:
+                raise InputError('MTM election cannot precede U.S. residency')
+            if self.election_year < self.effective_pfic_start.year:
+                raise InputError('MTM election cannot precede effective PFIC status')
         elif self.election_year is not None:
             raise InputError('Use regime=mtm for an election, including a future election')
         if self.claim_foreign_tax_credit and not self.foreign_taxes_creditable:
@@ -130,6 +145,11 @@ class Config:
                 raise InputError('Invalid return due date')
         if self.ending_units is not None:
             object.__setattr__(self, 'ending_units', Q(self.ending_units))
+
+    @property
+    def effective_pfic_start(self):
+        return max(self.us_person_since,date(self.first_pfic_year,1,1),
+                   self.pfic_start_date or date(self.first_pfic_year,1,1))
 
 COLUMNS = ['id','type','date','sequence','currency','amount','units','fee','eligibility_date','eligibility_sequence','linked_dividend_id','withholding','account','source']
 

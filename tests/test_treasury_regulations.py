@@ -134,13 +134,13 @@ class TreasuryRegulationExamples(unittest.TestCase):
         self.assertEqual((b['ending_basis_usd'],b['ending_unreversed_inclusions']),(110,10))
         self.assertEqual(r['summary_usd']['mtm_ordinary_income'],0)
 
-    def test_d5ii_pre_residency_example_rejected_not_miscalculated(self):
-        # Original example has dual $110 MTM / $60 general basis. Unsupported.
+    def test_d5ii_requires_opening_valuation(self):
+        # Missing the opening value must block the dual-basis calculation.
         config=Config(tax_year=2023,fund_name='Residency fixture',first_pfic_year=1995,
                       us_person_since='2005-01-01',complete_history=True,
                       ordinary_dividends_confirmed=True,regime='mtm',election_year=2005,
                       mtm_eligible=True,election_valid=True)
-        with self.assertRaisesRegex(InputError,'Pre-US-residency'):
+        with self.assertRaisesRegex(InputError,'residency_opening_valuation'):
             calculate([transaction('buy','BUY','1995-01-01',50)],config,TableFX())
 
     def test_i2i_transition_dividend_remains_1291(self):

@@ -45,3 +45,10 @@ Additional design-review sources:
   https://www.irs.gov/irm/part20/irm_20-002-005
 - Residency design sources and their authority/status are separately listed in
   RESIDENCY_DESIGN.md. Proposed and nonprecedential material is labeled as such.
+
+## Residency implementation
+
+See RESIDENCY_DESIGN.md for the final 1.1296-1(d)(5) dual-basis example,
+1.1291-9(j)(1), nonprecedential TAM 200733024, and the separately identified
+1992 proposed distribution rules. The proposed rules inform historical dividend
+lookback and within-year boundary treatment; they are not labeled final rules.

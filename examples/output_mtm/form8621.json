@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "reporting_rounding": "whole dollars, half up, only at output",
   "fund_name": "Synthetic CNY fund — MTM transition in 2022",
   "tax_year": 2023,
@@ -47,7 +47,9 @@
       "exact": "75/1",
       "decimal": "75",
       "rounded_whole_if_monetary": "75"
-    }
+    },
+    "pfic_start_date": null,
+    "residency_opening_valuation": null
   },
   "ending_units": {
     "exact": "75/1",
@@ -89,6 +91,13 @@
         "decimal": "0",
         "rounded_whole_if_monetary": "0"
       },
+      "ending_mtm_basis_usd": {
+        "exact": "0/1",
+        "decimal": "0",
+        "rounded_whole_if_monetary": "0"
+      },
+      "effective_pfic_start": "2021-01-01",
+      "pre_residency_acquisition": false,
       "ending_unreversed_inclusions": {
         "exact": "0/1",
         "decimal": "0",
@@ -238,6 +247,26 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
+          },
+          "general_adjusted_basis_usd": {
+            "exact": "500000/2299",
+            "decimal": "217.48586341887777294475859069160504567203131796433231839930404523705959112657677",
+            "rounded_whole_if_monetary": "217"
+          },
+          "mtm_adjusted_basis_usd": {
+            "exact": "500000/2299",
+            "decimal": "217.48586341887777294475859069160504567203131796433231839930404523705959112657677",
+            "rounded_whole_if_monetary": "217"
+          },
+          "total_gain_loss_usd": {
+            "exact": "132805000/54304679",
+            "decimal": "2.4455535406074308992784949525251774345264060947676350319647410124641377587371431",
+            "rounded_whole_if_monetary": "2"
+          },
+          "capital_gain_usd": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
           }
         }
       ],
@@ -276,6 +305,11 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
+          },
+          "general_ending_basis_usd": {
+            "exact": "500000/2299",
+            "decimal": "217.48586341887777294475859069160504567203131796433231839930404523705959112657677",
+            "rounded_whole_if_monetary": "217"
           }
         },
         {
@@ -286,6 +320,12 @@
             "decimal": "217.48586341887777294475859069160504567203131796433231839930404523705959112657677",
             "rounded_whole_if_monetary": "217"
           },
+          "mtm_basis_usd": {
+            "exact": "500000/2299",
+            "decimal": "217.48586341887777294475859069160504567203131796433231839930404523705959112657677",
+            "rounded_whole_if_monetary": "217"
+          },
+          "us_taxable_event": true,
           "proceeds_usd": {
             "exact": "5195000/23621",
             "decimal": "219.93141695948520384403708564413022310655772405909995343126878624952372888531392",
@@ -322,7 +362,9 @@
             "exact": "329/25",
             "decimal": "13.16",
             "rounded_whole_if_monetary": "13"
-          }
+          },
+          "us_taxable_event": true,
+          "lookback_only": false
         },
         {
           "distribution_id": "cash2",
@@ -342,7 +384,9 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
-          }
+          },
+          "us_taxable_event": true,
+          "lookback_only": false
         }
       ]
     },
@@ -376,6 +420,13 @@
         "decimal": "167.51126126126126126126126126126126126126126126126126126126126126126126126126126",
         "rounded_whole_if_monetary": "168"
       },
+      "ending_mtm_basis_usd": {
+        "exact": "74375/444",
+        "decimal": "167.51126126126126126126126126126126126126126126126126126126126126126126126126126",
+        "rounded_whole_if_monetary": "168"
+      },
+      "effective_pfic_start": "2021-01-01",
+      "pre_residency_acquisition": false,
       "ending_unreversed_inclusions": {
         "exact": "2350625/67044",
         "decimal": "35.060930135433446691724837420201658612254638744704969870532784440069208281128811",
@@ -528,6 +579,11 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
+          },
+          "general_ending_basis_usd": {
+            "exact": "74375/444",
+            "decimal": "167.51126126126126126126126126126126126126126126126126126126126126126126126126126",
+            "rounded_whole_if_monetary": "168"
           }
         }
       ],
@@ -576,6 +632,11 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
+          },
+          "general_ending_basis_usd": {
+            "exact": "350000/2299",
+            "decimal": "152.24010439321444106133101348412353197042192257503262287951283166594171378860374",
+            "rounded_whole_if_monetary": "152"
           }
         },
         {
@@ -622,6 +683,11 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
+          },
+          "general_ending_basis_usd": {
+            "exact": "74375/444",
+            "decimal": "167.51126126126126126126126126126126126126126126126126126126126126126126126126126",
+            "rounded_whole_if_monetary": "168"
           }
         }
       ],
@@ -644,7 +710,9 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
-          }
+          },
+          "us_taxable_event": true,
+          "lookback_only": false
         },
         {
           "distribution_id": "cash2",
@@ -664,7 +732,9 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
-          }
+          },
+          "us_taxable_event": true,
+          "lookback_only": false
         }
       ]
     },
@@ -702,6 +772,13 @@
         "decimal": "0",
         "rounded_whole_if_monetary": "0"
       },
+      "ending_mtm_basis_usd": {
+        "exact": "0/1",
+        "decimal": "0",
+        "rounded_whole_if_monetary": "0"
+      },
+      "effective_pfic_start": "2021-01-01",
+      "pre_residency_acquisition": false,
       "ending_unreversed_inclusions": {
         "exact": "0/1",
         "decimal": "0",
@@ -851,6 +928,26 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
+          },
+          "general_adjusted_basis_usd": {
+            "exact": "150000/2299",
+            "decimal": "65.245759025663331883427577207481513701609395389299695519791213571117877337973032",
+            "rounded_whole_if_monetary": "65"
+          },
+          "mtm_adjusted_basis_usd": {
+            "exact": "150000/2299",
+            "decimal": "65.245759025663331883427577207481513701609395389299695519791213571117877337973032",
+            "rounded_whole_if_monetary": "65"
+          },
+          "total_gain_loss_usd": {
+            "exact": "39841500/54304679",
+            "decimal": "0.73366606218222926978354848575755323035792182843029050958942230373924132762114292",
+            "rounded_whole_if_monetary": "1"
+          },
+          "capital_gain_usd": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
           }
         }
       ],
@@ -899,6 +996,11 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
+          },
+          "general_ending_basis_usd": {
+            "exact": "150000/2299",
+            "decimal": "65.245759025663331883427577207481513701609395389299695519791213571117877337973032",
+            "rounded_whole_if_monetary": "65"
           }
         },
         {
@@ -909,6 +1011,12 @@
             "decimal": "65.245759025663331883427577207481513701609395389299695519791213571117877337973032",
             "rounded_whole_if_monetary": "65"
           },
+          "mtm_basis_usd": {
+            "exact": "150000/2299",
+            "decimal": "65.245759025663331883427577207481513701609395389299695519791213571117877337973032",
+            "rounded_whole_if_monetary": "65"
+          },
+          "us_taxable_event": true,
           "proceeds_usd": {
             "exact": "1558500/23621",
             "decimal": "65.979425087845561153211125693239066931967317217729986029380635874857118665594175",
@@ -945,7 +1053,9 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
-          }
+          },
+          "us_taxable_event": true,
+          "lookback_only": false
         },
         {
           "distribution_id": "cash2",
@@ -965,7 +1075,9 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
-          }
+          },
+          "us_taxable_event": true,
+          "lookback_only": false
         }
       ]
     },
@@ -999,6 +1111,13 @@
         "decimal": "11.965090090090090090090090090090090090090090090090090090090090090090090090090090",
         "rounded_whole_if_monetary": "12"
       },
+      "ending_mtm_basis_usd": {
+        "exact": "10625/888",
+        "decimal": "11.965090090090090090090090090090090090090090090090090090090090090090090090090090",
+        "rounded_whole_if_monetary": "12"
+      },
+      "effective_pfic_start": "2021-01-01",
+      "pre_residency_acquisition": false,
       "ending_unreversed_inclusions": {
         "exact": "3211/9768",
         "decimal": "0.32872645372645372645372645372645372645372645372645372645372645372645372645372645",
@@ -1049,6 +1168,11 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
+          },
+          "general_ending_basis_usd": {
+            "exact": "10625/888",
+            "decimal": "11.965090090090090090090090090090090090090090090090090090090090090090090090090090",
+            "rounded_whole_if_monetary": "12"
           }
         }
       ],
@@ -1097,6 +1221,11 @@
             "exact": "0/1",
             "decimal": "0",
             "rounded_whole_if_monetary": "0"
+          },
+          "general_ending_basis_usd": {
+            "exact": "10625/888",
+            "decimal": "11.965090090090090090090090090090090090090090090090090090090090090090090090090090",
+            "rounded_whole_if_monetary": "12"
           }
         }
       ],
@@ -1139,6 +1268,11 @@
       "rounded_whole_if_monetary": "19"
     },
     "other_losses_before_general_limitations": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    },
+    "capital_gains_before_general_limitations": {
       "exact": "0/1",
       "decimal": "0",
       "rounded_whole_if_monetary": "0"
@@ -1243,6 +1377,8 @@
   ],
   "benchmark_status": "Known differences from supplied Andrew Mitchel examples; see docs/benchmark_comparison.json and docs/VALIDATION.md",
   "notes": [
+    "One uninterrupted U.S.-person period is modeled; pre-residency transactions remain in FIFO/history but are not current U.S. income events. Nonresident U.S.-source/ECI taxation, treaty overrides and repeated residency changes are outside this calculator.",
+    "Capital gains from dual-basis residency MTM sales are reported separately; complete capital-gain reporting outside Form 8621.",
     "External benchmark differences remain disclosed; these worksheets have not been independently certified for filing.",
     "Confirmation dates are treated as acquisition/disposition dates under the selected input policy. Verify they represent the tax-effective transaction dates.",
     "Treasury quarterly rates are the user-selected approximation, not a claim that quarterly rates equal daily spot rates.",

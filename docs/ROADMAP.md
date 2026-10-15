@@ -15,11 +15,12 @@ This is an implementation backlog, not a claim of supported features.
 4. Complete historical-form line mapping and treatment review for each supported
    year. Current outputs are supporting worksheets, not complete IRS forms.
 
-## Required next feature
+## Residency follow-up
 
-Pre-U.S.-residency ownership under §1291 and MTM, including the dual-basis
-regulatory example. See RESIDENCY_DESIGN.md. Proposed PFIC-start-date input is not
-implemented and cannot replace all residency/election/valuation facts.
+§1291 pre-residency holdings and the January 1 MTM dual-basis gain example are
+implemented. Remaining work: midyear first-residency-year MTM, sales below an
+uplifted MTM basis, repeated residency changes and treaty/nonresident ECI facts.
+See RESIDENCY_DESIGN.md for implemented boundaries and targeted rejections.
 
 ## Deliberate scope decisions
 

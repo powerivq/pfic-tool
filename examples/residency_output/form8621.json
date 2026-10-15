@@ -1,0 +1,515 @@
+{
+  "schema_version": "1.1",
+  "reporting_rounding": "whole dollars, half up, only at output",
+  "fund_name": "Synthetic pre-residency fund",
+  "tax_year": 2023,
+  "form_revision": "12/2018",
+  "status": "calculation_worksheets_not_a_complete_signed_return",
+  "config": {
+    "tax_year": 2023,
+    "fund_name": "Synthetic pre-residency fund",
+    "first_pfic_year": 2018,
+    "us_person_since": "2022-07-17",
+    "complete_history": true,
+    "ordinary_dividends_confirmed": true,
+    "regime": "1291",
+    "election_year": null,
+    "mtm_eligible": false,
+    "election_valid": false,
+    "valuations": {},
+    "due_dates": {
+      "2022": "2023-04-15",
+      "2023": "2024-04-15"
+    },
+    "claim_foreign_tax_credit": false,
+    "foreign_taxes_creditable": false,
+    "ending_units": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    },
+    "pfic_start_date": null,
+    "residency_opening_valuation": null
+  },
+  "ending_units": {
+    "exact": "0/1",
+    "decimal": "0",
+    "rounded_whole_if_monetary": "0"
+  },
+  "blocks": [
+    {
+      "block_id": "buy/sold/sale",
+      "purchase_id": "buy",
+      "account": "example",
+      "acquisition_date": "2020-12-31",
+      "holding_start": "2021-01-01",
+      "units": {
+        "exact": "1/1",
+        "decimal": "1",
+        "rounded_whole_if_monetary": "1"
+      },
+      "purchase_currency": "USD",
+      "allocated_purchase_cost_local": {
+        "exact": "100/1",
+        "decimal": "100",
+        "rounded_whole_if_monetary": "100"
+      },
+      "original_basis_usd": {
+        "exact": "100/1",
+        "decimal": "100",
+        "rounded_whole_if_monetary": "100"
+      },
+      "sale_id": "sale",
+      "sale_date": "2023-01-01",
+      "allocated_net_proceeds_local": {
+        "exact": "831/1",
+        "decimal": "831",
+        "rounded_whole_if_monetary": "831"
+      },
+      "ending_basis_usd": {
+        "exact": "0/1",
+        "decimal": "0",
+        "rounded_whole_if_monetary": "0"
+      },
+      "ending_mtm_basis_usd": {
+        "exact": "0/1",
+        "decimal": "0",
+        "rounded_whole_if_monetary": "0"
+      },
+      "effective_pfic_start": "2022-07-17",
+      "pre_residency_acquisition": true,
+      "ending_unreversed_inclusions": {
+        "exact": "0/1",
+        "decimal": "0",
+        "rounded_whole_if_monetary": "0"
+      },
+      "worksheets": [
+        {
+          "kind": "sale",
+          "transaction_id": "sale",
+          "date": "2023-01-01",
+          "regime": "1291",
+          "form_part": "V",
+          "proceeds_usd": {
+            "exact": "831/1",
+            "decimal": "831",
+            "rounded_whole_if_monetary": "831"
+          },
+          "adjusted_basis_usd": {
+            "exact": "100/1",
+            "decimal": "100",
+            "rounded_whole_if_monetary": "100"
+          },
+          "15f": {
+            "exact": "731/1",
+            "decimal": "731",
+            "rounded_whole_if_monetary": "731"
+          },
+          "tax": {
+            "pfic_start_date": "2022-07-17",
+            "holding_start": "2021-01-01",
+            "holding_end": "2023-01-01",
+            "holding_days": 731,
+            "amount_usd": {
+              "exact": "731/1",
+              "decimal": "731",
+              "rounded_whole_if_monetary": "731"
+            },
+            "annual_allocations": [
+              {
+                "year": 2021,
+                "start_inclusive": "2021-01-01",
+                "end_inclusive": "2021-12-31",
+                "days": 365,
+                "category": "pre_PFIC",
+                "allocated_excess_usd": {
+                  "exact": "365/1",
+                  "decimal": "365",
+                  "rounded_whole_if_monetary": "365"
+                },
+                "highest_tax_rate": null,
+                "gross_tax": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "allocated_credit": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "credit_used": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "net_tax": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "interest": {
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "interest_segments": []
+              },
+              {
+                "year": 2022,
+                "start_inclusive": "2022-01-01",
+                "end_inclusive": "2022-07-16",
+                "days": 197,
+                "category": "pre_PFIC",
+                "allocated_excess_usd": {
+                  "exact": "197/1",
+                  "decimal": "197",
+                  "rounded_whole_if_monetary": "197"
+                },
+                "highest_tax_rate": null,
+                "gross_tax": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "allocated_credit": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "credit_used": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "net_tax": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "interest": {
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "interest_segments": []
+              },
+              {
+                "year": 2022,
+                "start_inclusive": "2022-07-17",
+                "end_inclusive": "2022-12-31",
+                "days": 168,
+                "category": "prior_PFIC",
+                "allocated_excess_usd": {
+                  "exact": "168/1",
+                  "decimal": "168",
+                  "rounded_whole_if_monetary": "168"
+                },
+                "highest_tax_rate": {
+                  "exact": "37/100",
+                  "decimal": "0.37",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "gross_tax": {
+                  "exact": "1554/25",
+                  "decimal": "62.16",
+                  "rounded_whole_if_monetary": "62"
+                },
+                "allocated_credit": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "credit_used": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "net_tax": {
+                  "exact": "1554/25",
+                  "decimal": "62.16",
+                  "rounded_whole_if_monetary": "62"
+                },
+                "interest": {
+                  "decimal": "4.8760170793206020819352504836466902229857424389139101466175742794495767024143185",
+                  "rounded_whole_if_monetary": "5"
+                },
+                "interest_segments": [
+                  {
+                    "start_inclusive": "2023-04-15",
+                    "end_exclusive": "2023-07-01",
+                    "days": 77,
+                    "annual_rate": {
+                      "exact": "7/100",
+                      "decimal": "0.07",
+                      "rounded_whole_if_monetary": "0"
+                    },
+                    "year_days": 365,
+                    "factor": {
+                      "decimal": "1.0148752590394634937352405680077456199543710146828227923831693717090148974809286",
+                      "rounded_whole_if_monetary": "1"
+                    }
+                  },
+                  {
+                    "start_inclusive": "2023-07-01",
+                    "end_exclusive": "2023-10-01",
+                    "days": 92,
+                    "annual_rate": {
+                      "exact": "7/100",
+                      "decimal": "0.07",
+                      "rounded_whole_if_monetary": "0"
+                    },
+                    "year_days": 365,
+                    "factor": {
+                      "decimal": "1.0177986858027065307115023535612625615769279952049897641638246534248291671402503",
+                      "rounded_whole_if_monetary": "1"
+                    }
+                  },
+                  {
+                    "start_inclusive": "2023-10-01",
+                    "end_exclusive": "2024-01-01",
+                    "days": 92,
+                    "annual_rate": {
+                      "exact": "2/25",
+                      "decimal": "0.08",
+                      "rounded_whole_if_monetary": "0"
+                    },
+                    "year_days": 365,
+                    "factor": {
+                      "decimal": "1.0203668036662910228678141555827130772079442440087500031533437822606123418126818",
+                      "rounded_whole_if_monetary": "1"
+                    }
+                  },
+                  {
+                    "start_inclusive": "2024-01-01",
+                    "end_exclusive": "2024-04-01",
+                    "days": 91,
+                    "annual_rate": {
+                      "exact": "2/25",
+                      "decimal": "0.08",
+                      "rounded_whole_if_monetary": "0"
+                    },
+                    "year_days": 366,
+                    "factor": {
+                      "decimal": "1.0200876315101614492732986267747463826685098241990909338699727214035541296492992",
+                      "rounded_whole_if_monetary": "1"
+                    }
+                  },
+                  {
+                    "start_inclusive": "2024-04-01",
+                    "end_exclusive": "2024-04-15",
+                    "days": 14,
+                    "annual_rate": {
+                      "exact": "2/25",
+                      "decimal": "0.08",
+                      "rounded_whole_if_monetary": "0"
+                    },
+                    "year_days": 366,
+                    "factor": {
+                      "decimal": "1.0030644607894263598296268994786673114771972256028294130689674576407502157932431",
+                      "rounded_whole_if_monetary": "1"
+                    }
+                  }
+                ]
+              },
+              {
+                "year": 2023,
+                "start_inclusive": "2023-01-01",
+                "end_inclusive": "2023-01-01",
+                "days": 1,
+                "category": "current",
+                "allocated_excess_usd": {
+                  "exact": "1/1",
+                  "decimal": "1",
+                  "rounded_whole_if_monetary": "1"
+                },
+                "highest_tax_rate": null,
+                "gross_tax": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "allocated_credit": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "credit_used": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "net_tax": {
+                  "exact": "0/1",
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "interest": {
+                  "decimal": "0",
+                  "rounded_whole_if_monetary": "0"
+                },
+                "interest_segments": []
+              }
+            ],
+            "16b": {
+              "exact": "563/1",
+              "decimal": "563",
+              "rounded_whole_if_monetary": "563"
+            },
+            "16c": {
+              "exact": "1554/25",
+              "decimal": "62.16",
+              "rounded_whole_if_monetary": "62"
+            },
+            "16d": {
+              "exact": "0/1",
+              "decimal": "0",
+              "rounded_whole_if_monetary": "0"
+            },
+            "16e": {
+              "exact": "1554/25",
+              "decimal": "62.16",
+              "rounded_whole_if_monetary": "62"
+            },
+            "16f": {
+              "decimal": "4.8760170793206020819352504836466902229857424389139101466175742794495767024143185",
+              "rounded_whole_if_monetary": "5"
+            },
+            "current_year_credit_candidate": {
+              "exact": "0/1",
+              "decimal": "0",
+              "rounded_whole_if_monetary": "0"
+            }
+          },
+          "other_loss": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        }
+      ],
+      "basis_history": [
+        {
+          "year": 2023,
+          "action": "sale",
+          "basis": {
+            "exact": "100/1",
+            "decimal": "100",
+            "rounded_whole_if_monetary": "100"
+          },
+          "mtm_basis_usd": {
+            "exact": "100/1",
+            "decimal": "100",
+            "rounded_whole_if_monetary": "100"
+          },
+          "us_taxable_event": true,
+          "proceeds_usd": {
+            "exact": "831/1",
+            "decimal": "831",
+            "rounded_whole_if_monetary": "831"
+          },
+          "gain_usd": {
+            "exact": "731/1",
+            "decimal": "731",
+            "rounded_whole_if_monetary": "731"
+          },
+          "unreversed_inclusions": {
+            "exact": "0/1",
+            "decimal": "0",
+            "rounded_whole_if_monetary": "0"
+          }
+        }
+      ],
+      "distribution_history": []
+    }
+  ],
+  "summary_usd": {
+    "1291_current_ordinary_income": {
+      "exact": "563/1",
+      "decimal": "563",
+      "rounded_whole_if_monetary": "563"
+    },
+    "1291_tax_before_credits": {
+      "exact": "1554/25",
+      "decimal": "62.16",
+      "rounded_whole_if_monetary": "62"
+    },
+    "1291_credit": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    },
+    "1291_additional_tax": {
+      "exact": "1554/25",
+      "decimal": "62.16",
+      "rounded_whole_if_monetary": "62"
+    },
+    "1291_interest": {
+      "decimal": "4.8760170793206020819352504836466902229857424389139101466175742794495767024143185",
+      "rounded_whole_if_monetary": "5"
+    },
+    "ordinary_dividends": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    },
+    "mtm_ordinary_income": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    },
+    "other_losses_before_general_limitations": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    },
+    "capital_gains_before_general_limitations": {
+      "exact": "0/1",
+      "decimal": "0",
+      "rounded_whole_if_monetary": "0"
+    }
+  },
+  "fx_audit": [
+    {
+      "currency": "USD",
+      "transaction_date": "2020-12-31",
+      "effective_date": "2020-12-31",
+      "foreign_per_usd": {
+        "exact": "1/1",
+        "decimal": "1",
+        "rounded_whole_if_monetary": "1"
+      },
+      "record_date": null,
+      "source": "USD identity",
+      "policy": "treasury_latest_effective_on_or_before_v1"
+    },
+    {
+      "currency": "USD",
+      "transaction_date": "2023-01-01",
+      "effective_date": "2023-01-01",
+      "foreign_per_usd": {
+        "exact": "1/1",
+        "decimal": "1",
+        "rounded_whole_if_monetary": "1"
+      },
+      "record_date": null,
+      "source": "USD identity",
+      "policy": "treasury_latest_effective_on_or_before_v1"
+    }
+  ],
+  "interest_sources": [
+    "https://www.irs.gov/irb/2024-49_IRB",
+    "https://www.irs.gov/payments/quarterly-interest-rates"
+  ],
+  "benchmark_status": "Known differences from supplied Andrew Mitchel examples; see docs/benchmark_comparison.json and docs/VALIDATION.md",
+  "notes": [
+    "One uninterrupted U.S.-person period is modeled; pre-residency transactions remain in FIFO/history but are not current U.S. income events. Nonresident U.S.-source/ECI taxation, treaty overrides and repeated residency changes are outside this calculator.",
+    "Capital gains from dual-basis residency MTM sales are reported separately; complete capital-gain reporting outside Form 8621.",
+    "External benchmark differences remain disclosed; these worksheets have not been independently certified for filing.",
+    "Confirmation dates are treated as acquisition/disposition dates under the selected input policy. Verify they represent the tax-effective transaction dates.",
+    "Treasury quarterly rates are the user-selected approximation, not a claim that quarterly rates equal daily spot rates.",
+    "Part V annual dividend totals repeat across event worksheets; do not add those repeated totals.",
+    "Other losses are unnetted and subject to general capital loss, wash sale and other limitations outside this calculator.",
+    "Fund identity, ownership percentages, taxpayer identity, elections and filing exceptions require completion outside these calculation worksheets."
+  ],
+  "input_sha256": "bc5ea3fb125b2e4784faf3788278feab9c4ebf35b7dc62c0088c18ff174b58c5",
+  "input_filename": "residency_fund.csv"
+}

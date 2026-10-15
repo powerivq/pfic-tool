@@ -63,16 +63,59 @@ def interest_factor(start,end):
             cursor=stop
         return balance-1,tuple(trace)
 
-def section1291(amount_usd, acquired, event, first_pfic_year, due_dates, credit_usd=0):
+def allocation_periods(acquired, event, first_pfic_year, pfic_start_date=None):
+    """Partition the original holding period by year AND taxpayer PFIC boundary.
+
+    Residency/PFIC start day is inclusive; acquisition day remains excluded.
+    A mixed prior year can therefore have both pre_PFIC and prior_PFIC rows.
+    """
+    acquired,event=day(acquired),day(event)
+    counts=holding_days(acquired,event)
+    boundary=max(date(first_pfic_year,1,1),day(pfic_start_date)) if pfic_start_date else date(first_pfic_year,1,1)
+    rows=[]
+    for year,count in counts.items():
+        start=max(acquired+timedelta(days=1),date(year,1,1))
+        end=min(event,date(year,12,31))
+        if year==event.year:
+            intervals=[(start,end,'current')]
+        else:
+            intervals=[(start,min(end,boundary-timedelta(days=1)),'pre_PFIC'),
+                       (max(start,boundary),end,'prior_PFIC')]
+        for lo,hi,category in intervals:
+            if lo<=hi:
+                rows.append({'year':year,'start_inclusive':lo,'end_inclusive':hi,
+                             'days':(hi-lo).days+1,'category':category})
+    return rows
+
+
+def residency_mtm_sale(general_basis, mtm_basis, proceeds, unreversed):
+    """Dual-basis gain branch of 1.1296-1(d)(5). Never invent loss character."""
+    general_basis,mtm_basis,proceeds,unreversed=map(Q,(general_basis,mtm_basis,proceeds,unreversed))
+    if general_basis<0:
+        raise InputError('Negative general basis')
+    if general_basis>mtm_basis:
+        raise InputError('General basis exceeds residency MTM basis')
+    if general_basis!=mtm_basis and proceeds<mtm_basis:
+        raise InputError('Dual-basis sale below MTM basis requires reviewed loss-character treatment; unsupported')
+    result=mtm_sale(mtm_basis,proceeds,unreversed)
+    total=proceeds-general_basis
+    capital_gain=total-result['ordinary_income']+result['other_loss']
+    return {**result,'general_adjusted_basis_usd':general_basis,
+            'mtm_adjusted_basis_usd':mtm_basis,'total_gain_loss_usd':total,
+            'capital_gain_usd':capital_gain}
+
+
+def section1291(amount_usd, acquired, event, first_pfic_year, due_dates, credit_usd=0, *, pfic_start_date=None):
     amount,credit=Q(amount_usd),Q(credit_usd)
     if amount<0 or credit<0:raise InputError('§1291 excess and credit cannot be negative')
-    event=day(event);days=holding_days(acquired,event);total=sum(days.values())
+    event=day(event);periods=allocation_periods(acquired,event,first_pfic_year,pfic_start_date);total=sum(p['days'] for p in periods)
     rows=[];ordinary=Q(0);tax=Q(0);used_credit=Q(0);current_credit=Q(0);interest=Decimal(0)
     with localcontext() as ctx:
         ctx.prec=80
-        for year,count in days.items():
+        for period in periods:
+            year,count=period['year'],period['days']
             allocation=amount*count/total;allocated_credit=credit*count/total
-            deferred=first_pfic_year<=year<event.year
+            deferred=period['category']=='prior_PFIC'
             gross=allocation*highest_individual_rate(year) if deferred else Q(0)
             used=min(gross,allocated_credit) if deferred else Q(0)
             net=gross-used;charge=Decimal(0);segments=()
@@ -83,8 +126,8 @@ def section1291(amount_usd, acquired, event, first_pfic_year, due_dates, credit_
                 charge=dec(net)*factor
             if not deferred:ordinary+=allocation;current_credit+=allocated_credit
             tax+=gross;used_credit+=used;interest+=charge
-            rows.append({'year':year,'days':count,'allocated_excess_usd':allocation,'category':'prior_PFIC' if deferred else ('current' if year==event.year else 'pre_PFIC'),'highest_tax_rate':highest_individual_rate(year) if deferred else None,'gross_tax':gross,'allocated_credit':allocated_credit,'credit_used':used,'net_tax':net,'interest':charge,'interest_segments':segments})
-    return {'holding_start':day(acquired)+timedelta(days=1),'holding_end':event,'holding_days':total,'amount_usd':amount,'annual_allocations':rows,'16b':ordinary,'16c':tax,'16d':used_credit,'16e':tax-used_credit,'16f':interest,'current_year_credit_candidate':current_credit}
+            rows.append({**period,'allocated_excess_usd':allocation,'highest_tax_rate':highest_individual_rate(year) if deferred else None,'gross_tax':gross,'allocated_credit':allocated_credit,'credit_used':used,'net_tax':net,'interest':charge,'interest_segments':segments})
+    return {'pfic_start_date':day(pfic_start_date) if pfic_start_date else date(first_pfic_year,1,1),'holding_start':day(acquired)+timedelta(days=1),'holding_end':event,'holding_days':total,'amount_usd':amount,'annual_allocations':rows,'16b':ordinary,'16c':tax,'16d':used_credit,'16e':tax-used_credit,'16f':interest,'current_year_credit_candidate':current_credit}
 
 def mtm_year_end(basis,fmv,unreversed):
     basis,fmv,unreversed=map(Q,(basis,fmv,unreversed))

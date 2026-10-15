@@ -8,14 +8,14 @@ is required. Run commands from this directory.
 
 ## Project status and documentation
 
-Research implementation, version 0.1.0. **Pre-U.S.-residency holdings are currently
-rejected; support is planned, not implemented.** Benchmark interest discrepancies
+Research implementation, version 0.2.0. **Pre-U.S.-residency holdings are supported
+under §1291, with bounded MTM support described below.** Benchmark interest discrepancies
 remain unresolved. Supported reporting years are 2018–2025.
 
 - [Design and architecture](docs/DESIGN.md)
 - [Input contract and examples](docs/INPUTS.md)
 - [Validation results and known discrepancies](docs/VALIDATION.md)
-- [Residency-transition design proposal](docs/RESIDENCY_DESIGN.md)
+- [Residency support and limitations](docs/RESIDENCY_DESIGN.md)
 - [Roadmap and open decisions](docs/ROADMAP.md)
 - [Source register](docs/SOURCES.md)
 - [Treasury regulation coverage](docs/treasury_regulation_coverage.json)
@@ -40,7 +40,7 @@ official IRS PDF or a complete tax return**. Taxpayer/PFIC identity, Part I annu
 information and election statements are not fabricated. The included examples
 are synthetic, not calculated results for any individual taxpayer.
 
-**Validation status:** 109 automated tests pass; see `docs/test_results.txt`. Checks against the two supplied Andrew Mitchel
+**Validation status:** 139 automated tests pass; see `docs/test_results.txt`. Checks against the two supplied Andrew Mitchel
 calculators exposed holding-day, rounding and interest differences. They are
 recorded in `docs/VALIDATION.md` and `docs/benchmark_comparison.json`, not called
 successful matches. Treat this implementation as reviewable calculation software,
@@ -200,7 +200,7 @@ year, and either §1291 or one continuing valid MTM election. Explicit configura
 confirms complete history. No automatic PFIC legal classification is performed.
 
 Not implemented: QEF, gifts/inheritances/transfers, mergers/splits, return of
-capital, PFIC cessation, election revocation, pre-US-residency transition basis,
+capital, PFIC cessation, election revocation, repeated residency changes,
 opening-state imports, indirect/corporate ownership, or completed Forms 1116/8960.
 These require additional reviewed logic. Potential wash-sale replacements visible
 in the supplied history block calculations involving losses; outside-account
@@ -255,3 +255,32 @@ outside this program. Withholding is retained when no credit is claimed.
 Section 1248 FTC is excluded by user instruction. Sale rows cannot contain
 withholding, and the program does not apply distribution credits to sale gains.
 The supported FTC scope is independent of PFIC start-date and residency inputs.
+
+
+## Shares purchased before U.S. residency
+
+Keep the original purchases, sales, dividends and reinvestments in the fund CSV.
+Set `us_person_since` to the actual first U.S.-person date; do not move purchase
+dates to residency or replace their historical USD cost. For §1291, allocations
+retain the full original holding period and split prior years at that date.
+Pre-residency days are pre-PFIC allocations, not prior-PFIC deferred-tax days.
+Pre-residency payments remain distribution history but produce no U.S. income
+or FTC in the selected-year worksheets under this input contract.
+
+Optional `pfic_start_date` can specify a later taxpayer-specific PFIC boundary;
+it cannot precede residency or January 1 of `first_pfic_year`.
+
+For a valid first-residency-year MTM election with January 1 residency, supply
+`residency_opening_valuation=Valuation("100", "USD", "opening NAV source")`.
+This is a per-share January 1 value, separate from December 31 valuations.
+General cost basis is preserved; the special MTM basis is tracked separately.
+A later valid election uses first-year §1291 coordination, without silently
+applying an immigration uplift. Midyear first-residency-year MTM on existing
+shares and sales below an uplifted MTM basis remain explicitly blocked.
+See [residency details](docs/RESIDENCY_DESIGN.md) for assumptions and sources.
+
+Run the synthetic §1291 residency example:
+
+```bash
+python -m pfic calculate examples/residency_fund.csv --config examples/residency_config.json --out output-residency --offline
+```

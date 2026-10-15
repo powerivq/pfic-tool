@@ -56,9 +56,14 @@ JSON numbers as strings to avoid binary float conversion.
 - Optional `ending_units`: exact independent reconciliation check.
 - CLI-only `currency_countries`: overrides ambiguous Treasury country mappings.
 
-`us_person_since` currently enforces a rejection boundary; it does not implement
-residency transition calculations. `first_pfic_year` is a year, not the proposed
-future `pfic_start_date` input. Do not use either to bypass pre-residency rejection.
+`us_person_since` is the actual beginning of one uninterrupted U.S.-person period.
+Pre-residency transactions are accepted and retained. Optional `pfic_start_date`
+is a date-level status boundary no earlier than residency or January 1 of
+`first_pfic_year`; it is not a basis reset or deemed-sale election.
+For first-residency-year MTM on January 1, `residency_opening_valuation` is an
+object with `unit_value`, `currency`, and optional `source`, just like a year-end
+valuation, but measured at January 1. Midyear first-year MTM is blocked for
+pre-existing shares. See RESIDENCY_DESIGN.md for the complete scope.
 
 ## Money-market funds
 

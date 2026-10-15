@@ -47,7 +47,7 @@ def write_report(report,output_dir):
             if w.get('tax'):
                 tax=w['tax']
                 parts.append('<h3>Part V · line 16a allocation</h3>')
-                parts.append(_table(tax['annual_allocations'],['year','days','category','allocated_excess_usd','highest_tax_rate','gross_tax','allocated_credit','credit_used','net_tax','interest']))
+                parts.append(_table(tax['annual_allocations'],['year','start_inclusive','end_inclusive','days','category','allocated_excess_usd','highest_tax_rate','gross_tax','allocated_credit','credit_used','net_tax','interest']))
                 parts.append(_table([{'line':k,'USD':tax[k]} for k in ('16b','16c','16d','16e','16f')],['line','USD']))
                 for a in tax['annual_allocations']:
                     if a['interest_segments']:
@@ -55,7 +55,7 @@ def write_report(report,output_dir):
         if b['basis_history']:
             parts.append('<h3>Basis and MTM history</h3>'+_show(b['basis_history']))
         if b['distribution_history']:
-            parts.append('<h3>Distribution history used for future thresholds</h3>'+_table(b['distribution_history'],['distribution_id','date','currency','gross_local','included_local','excluded_prior_pfic_local']))
+            parts.append('<h3>Distribution history used for future thresholds</h3>'+_table(b['distribution_history'],['distribution_id','date','currency','gross_local','included_local','excluded_prior_pfic_local','us_taxable_event','lookback_only']))
         parts.append('</section>')
     parts.append('<h2>Exchange rate audit</h2>'+_table(report['fx_audit'],['currency','transaction_date','effective_date','foreign_per_usd','record_date','policy','source']))
     parts.append('<h2>Run configuration</h2>'+_show(encode(report['config'])))

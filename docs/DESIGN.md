@@ -76,8 +76,10 @@ See VALIDATION.md and ROADMAP.md for the incomplete annualization review.
 
 The allocation excludes the acquisition day and includes the event day. Prior
 PFIC years receive the historical highest individual tax rate. Current/pre-PFIC
-allocations enter current ordinary income. Current code classifies PFIC status by
-`first_pfic_year`; residency-based date-level status is not yet implemented.
+allocations enter current ordinary income. Status begins at the latest of residency, January 1 of `first_pfic_year`,
+and optional `pfic_start_date`. Prior-year allocations split within the year
+at this boundary. Historical pre-residency events remain in the FIFO ledger
+and dividend lookback but produce no U.S. income or credit worksheet.
 
 Distribution FTC is opt-in and requires creditability confirmation. Event
 withholding is apportioned to blocks, excess/nonexcess amounts and years. Credits
@@ -114,3 +116,15 @@ unsupported event as an ordinary purchase or sale merely to bypass validation.
 
 See RESIDENCY_DESIGN.md for the planned dual-basis extension. This design does not
 claim that passing regression tests establishes complete legal correctness.
+
+
+## Residency state (schema 1.1)
+
+Every block retains acquisition date and original purchase-date USD basis.
+January 1 first-residency-year MTM carries separate general and MTM bases.
+The special opening uplift does not create unreversed inclusions. Subsequent
+recognized MTM adjustments update both bases; partial sales divide every balance
+by exact share fractions. Supported gain sales expose total gain, ordinary gain
+and capital gain separately. `ending_basis_usd` is general basis;
+`ending_mtm_basis_usd` is the separate section 1296 basis. Other unsupported
+loss-character and midyear cases raise targeted InputError messages.

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0
+
+- Accept pre-residency transaction history with date-level §1291 allocations.
+- Preserve original USD cost, historical dividends, FIFO sales and reinvestments.
+- Add optional PFIC boundary and January 1 residency MTM dual-basis valuation.
+- Export separate MTM ordinary/capital gains and exact basis reconciliation.
+- Add 30 residency regressions; 139 tests pass. JSON schema is now 1.1.
+- Keep midyear first-residency-year MTM and dual-basis loss sales explicitly blocked.
+
+
 ## 0.1.0 — initial repository publication
 
 - Python single-fund FIFO calculator with §1291 and MTM supporting worksheets.

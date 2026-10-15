@@ -23,6 +23,8 @@ def main():
         if args.year is not None:raw['tax_year']=args.year
         raw['valuations']={int(y):Valuation(**v) for y,v in raw.get('valuations',{}).items()}
         raw['due_dates']={int(y):day(d) for y,d in raw.get('due_dates',{}).items()}
+        if raw.get('residency_opening_valuation') is not None:
+            raw['residency_opening_valuation']=Valuation(**raw['residency_opening_valuation'])
         config=Config(**raw)
         fx=TreasuryFX(cache_dir=args.cache,currency_countries=mappings,offline=args.offline)
         result=calculate_csv(args.csv,config,fx)

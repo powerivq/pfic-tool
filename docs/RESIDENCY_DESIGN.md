@@ -1,72 +1,84 @@
-# Pre-U.S.-residency holdings: proposed design
+# Pre-U.S.-residency holdings
 
-**Status: required feature, not implemented.** The current engine rejects these
-holdings. This document records implementation requirements and unresolved tax
-questions; it is not an instruction to remove that guard.
+## Implemented scope
 
-## Separate concepts
+Version 0.2.0 accepts original pre-residency transactions for §1291. It supports
+one uninterrupted U.S.-person period for a direct individual calendar-year owner.
+The input contract excludes pre-residency U.S.-source/ECI taxation, treaty
+overrides, repeated residency changes and holding-period-reset elections.
+Residency dates, PFIC status and election validity are supplied facts, not inferred.
 
-Keep actual acquisition date and general USD cost basis. Track U.S.-person periods
-separately from fund PFIC status, PFIC holding-period resets and MTM election dates.
-A simplified user-facing PFIC start date can describe taxpayer-specific status,
-but cannot also identify whether the taxpayer immigrated or the fund changed status.
+`us_person_since` sets the residency boundary. Optional `pfic_start_date` can
+specify a later taxpayer-specific PFIC start, but cannot precede residency or
+January 1 of `first_pfic_year`. It does not reset general basis or acquisition.
 
-Proposed configuration: confirmed residency effective date, taxpayer-specific PFIC
-start date/reason, relevant opening-year valuation with date/currency/source, and
-valid election year. A single uninterrupted residency period is the initial target;
-repeated changes, treaty overrides and elections require explicit treatment.
-No factual residency date or election validity will be inferred from transactions.
+## Section 1291
 
-## Section 1291 requirements
+Original purchase-date USD cost and the full holding period are preserved.
+Allocation excludes acquisition day and includes the event day. Prior years
+split at the effective PFIC boundary, including within a calendar year.
+Pre-PFIC and current-year amounts enter current ordinary income; only prior-PFIC
+allocations enter the deferred-tax/interest computation. Pre-residency appreciation
+is not erased by an invented general immigration basis step-up.
 
-Retain the actual holding period and original purchase-date USD basis. Split
-allocation periods at residency boundaries, including within a calendar year.
-Distinguish pre-PFIC ordinary-income allocation from prior-PFIC deferred-tax and
-interest allocation. Preserve all historical purchases, sales and distributions;
-pre-residency reinvestments remain real lots, not zero-basis opening balances.
+Pre-residency sales deplete FIFO inventory. Pre-residency reinvestments create
+real acquisition lots. Dividends retain eligibility-based block allocation and
+payment dates; pre-residency payments have no U.S. income or FTC worksheet under
+this input contract. They remain in historical distribution totals. Annual totals
+include distributions before the boundary when computing and apportioning excess;
+only post-boundary events receive section 1291 treatment. Resident pre-PFIC
+payments are ordinary dividends. Historical exclusion removes only the excess
+allocated to prior-PFIC days, not all prior calendar years.
 
-Primary sources for review:
-- https://www.law.cornell.edu/uscode/text/26/1291
-- https://www.law.cornell.edu/cfr/text/26/1.1291-9 (j)(1)
-- https://www.irs.gov/pub/irs-wd/0733024.pdf (nonprecedential technical advice)
-- https://archives.federalregister.gov/issue_slice/1992/4/1/11023-11056.pdf
-  (1992 proposed rules, not represented as final regulations)
+The distribution convention follows actual received amounts. The optional use of
+known actual pre-acquisition per-share distributions in proposed 1.1291-2(d)(1)
+is not implemented. No arbitrary daily annualization multiplier is applied.
+The 1992 distribution rules are proposed, not final; this authority distinction
+and the wider dividend-review limitation remain material to independent review.
 
-## MTM dual basis
+## MTM: supported January 1 transition
 
-Treas. Reg. 1.1296-1(d)(5) states a special basis solely for section 1296:
-greater of FMV or adjusted basis on the first day of the taxable year of becoming
-a U.S. person, for stock owned on that first day. Do not silently replace that
-date with a midyear arrival date or extend the rule to a later election.
+For existing shares and a valid election in the first residency year, residency
+must begin January 1. Supply `residency_opening_valuation` as per-share FMV in its
+currency on that date. It uses the configured FX policy independently of the
+purchase date. The general basis stays at original adjusted cost; special MTM
+basis is the greater of that basis or opening FMV. The uplift creates no
+unreversed inclusion. Subsequent recognized adjustments update both bases.
 
-Each block needs general adjusted basis, section 1296 adjusted basis, unreversed
-inclusions, and the relevant holding-period dates. Partial FIFO sales must split
-all these balances exactly. Year-end adjustments affect both bases according to
-the applicable rules; a sale must reconcile total gain/loss and character.
+The final regulation's example is an independent numerical oracle: cost 50,
+opening FMV 100, year-end FMV 110, inclusion 10, general basis 60, MTM basis 110.
+Sale at 120 produces total gain 60, ordinary gain 10 and capital gain 50.
+Tests adapt residency/sale years to 2023/2024 without changing these dollar facts.
+Partial FIFO sales divide both bases and inclusions exactly. Capital gains appear
+separately in the report, for general capital-gain reporting outside Form 8621.
 
-Required source example, 1.1296-1(d)(5)(ii): original cost 50; January 1 residency
-value 100; year-end value 110; recognize 10 MTM income; carry general basis 60
-and MTM basis 110; subsequent sale 120 produces total gain 60, ordinary 10 and
-long-term capital gain 50. No general immigration step-up erases the original 50.
+A valid election in a later residency year uses section 1296(i) first-year
+coordination and original basis, without applying an immigration uplift. Missing
+required opening valuations are rejected. Election validity remains a factual
+confirmation; this tool does not establish eligibility or file the election.
 
-Source: https://www.irs.gov/pub/irs-regs/td9123.pdf
+## Explicit remaining limits
 
-## Questions to resolve before enabling
+- Midyear first-residency-year MTM for pre-existing shares is rejected: the
+  regulation refers to the first day of the taxable year, not simply arrival FMV.
+- Sales below a special MTM basis that exceeds general basis are rejected pending
+  reviewed loss-character treatment. Equal-basis ordinary-loss rules remain supported.
+- Multiple residency periods, treaty exceptions, pre-residency ECI, QEF, PFIC
+  cessation, deemed-sale holding-period resets and other corporate actions are excluded.
+- Taxpayer-wide Schedule D, NIIT and current-year FTC limitations are outside the tool.
+- Existing benchmark interest discrepancies and explicit due-date requirements remain.
 
-1. Midyear residency, including purchases after January 1 but before residency.
-2. Election in a later residency year and interaction with first-year §1291 rules.
-3. Pre-residency dividends in the lookback, partial-year annualization and
-   eligibility/payment dates that straddle the residency boundary.
-4. Dual-basis sales when proceeds fall between or below the two bases.
-5. Reporting ordinary and capital components without implying a completed
-   Schedule D or general FTC/NIIT calculation.
+## Sources and tests
 
-## Acceptance tests
+- 26 USC 1291: https://www.law.cornell.edu/uscode/text/26/1291
+- Final 1.1291-9(j)(1): https://www.law.cornell.edu/cfr/text/26/1.1291-9
+- Final 1.1296-1(d)(5), (i): https://www.law.cornell.edu/cfr/text/26/1.1296-1
+- Treasury Decision 9123: https://www.irs.gov/pub/irs-regs/td9123.pdf
+- Nonprecedential technical advice: https://www.irs.gov/pub/irs-wd/0733024.pdf
+- Proposed 1992 1.1291-1(b)(1), 1.1291-2(c)(2), (d)(1), (d)(6):
+  https://archives.federalregister.gov/issue_slice/1992/4/1/11023-11056.pdf
 
-Reproduce the complete regulatory example above. Add FMV below cost, fractional
-partial sales, multiple original lots, pre-residency reinvestments, separate FX
-dates, midyear boundaries, delayed elections, and same-day residency/trade facts.
-Check basis/units/withholding conservation and component-to-total reconciliation.
-Replace the current rejection test only when the supported branch is implemented;
-keep explicit guards for unresolved scenarios. Document all date adaptations
-when testing historical regulatory examples with modern form mappings.
+`tests/test_residency.py` contains independently specified expected amounts,
+calendar-day iteration, conservation checks, the complete MTM regulatory example,
+CLI/HTML/JSON integration, and targeted rejection tests. Passing these tests does
+not turn proposed guidance into final regulations or certify filing readiness.

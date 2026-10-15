@@ -198,8 +198,10 @@ class ValidationTests(unittest.TestCase):
         with self.assertRaises(InputError):cfg(2030)
     def test_history_confirmation_required(self):
         with self.assertRaises(InputError):cfg(complete_history=False)
-    def test_pre_residency_blocked(self):
-        with self.assertRaises(InputError):calc([tx('a','BUY','1999-01-01','1','1')])
+    def test_pre_residency_purchase_preserved(self):
+        r=calc([tx('a','BUY','1999-01-01','1','1')])
+        self.assertEqual(r['blocks'][0]['original_basis_usd'],1)
+        self.assertEqual(r['blocks'][0]['acquisition_date'],date(1999,1,1))
     def test_ending_balance(self):
         with self.assertRaises(InputError):calc([tx('a','BUY','2020-01-01','1','1')],ending_units='2')
     def test_wash_sale_risk_blocked(self):

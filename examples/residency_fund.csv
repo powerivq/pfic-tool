@@ -1,0 +1,3 @@
+id,type,date,sequence,currency,amount,units,fee,withholding,account,source
+buy,BUY,2020-12-31,1,USD,100,1,0,0,example,Synthetic historical purchase
+sale,SELL,2023-01-01,1,USD,831,1,0,0,example,Synthetic sale

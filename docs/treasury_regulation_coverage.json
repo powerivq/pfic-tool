@@ -5,7 +5,7 @@
   "scope": "All 13 numbered/unnumbered examples within section 1.1296-1 in TD 9123 inventoried. Not an audit of every PFIC regulation.",
   "test_file": "tests/test_treasury_regulations.py",
   "new_tests": 17,
-  "suite_tests": 109,
+  "suite_tests": 139,
   "examples": [
     {
       "citation": "1.1296-1(a)(3)(iii)",
@@ -58,8 +58,8 @@
     {
       "citation": "1.1296-1(d)(5)(ii)",
       "scenario": "Immigration dual basis and subsequent ordinary/capital sale split",
-      "coverage": "rejection_test",
-      "limits": "Pre-residency input is rejected before valuation/calculation; no claim of supporting dual basis."
+      "coverage": "tested_with_scope_limit",
+      "limits": "Complete dollar example tested in tests/test_residency.py; residency/sale years adapted to 2023/2024. January 1 residency supported; midyear first-year MTM and sales below uplifted MTM basis explicitly blocked."
     },
     {
       "citation": "1.1296-1(h)(4) Example 1",
